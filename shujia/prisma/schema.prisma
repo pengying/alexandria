@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  uuid String @id @db.Uuid @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String @db.Text
+  bookRaw BookRevision? @relation("BookRaw")
+  bookEdited BookRevision? @relation("BookEdited")
+}
+
+model BookRevision {
+  uuid String @id @db.Uuid @default(uuid())
+  isRaw Boolean @default(true)
+  bookRaw Book? @relation("BookRaw", fields: [bookRawId], references:[uuid])
+  bookRawId String? @db.Uuid @unique
+  bookEdited Book? @relation("BookEdited", fields: [bookEditedId], references:[uuid])
+  bookEditedId String? @db.Uuid @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content String[]
+}
