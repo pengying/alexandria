@@ -9,14 +9,17 @@ class Prompt extends StatefulWidget {
 }
 
 class _PromptState extends State<Prompt> {
-  String name = "";
-  String prompt = "";
-  final myController = TextEditingController();
+  final nameController = TextEditingController();
+  final ageController = TextEditingController();
+  final promptController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    myController.dispose();
+    nameController.dispose();
+    ageController.dispose();
+    promptController.dispose();
+
     super.dispose();
   }
 
@@ -26,107 +29,140 @@ class _PromptState extends State<Prompt> {
 
     return Form(
       key: _formKey,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        TextFormField(
-          decoration: const InputDecoration(
-            label: Text.rich(
-              TextSpan(
-                children: <InlineSpan>[
-                  WidgetSpan(
-                    child: Text(
-                      'Name',
-                    ),
-                  ),
-                  WidgetSpan(
-                    child: Text(
-                      '*',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            border: OutlineInputBorder(),
-
+      child: FocusTraversalGroup(
+        policy: OrderedTraversalPolicy(),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          const SizedBox(height: 10),
+          Text(
+            "Story Prompt",
+            style: Theme.of(context).textTheme.displayMedium,
           ),
-          keyboardType: TextInputType.name,
-          validator: (String? value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a name';
-            }
-            return null;
-          },
-        ),
-        TextFormField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            label: Text.rich(
-              TextSpan(
-                children: <InlineSpan>[
-                  WidgetSpan(
-                    child: Text(
-                      'Age',
-                    ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextFormField(
+              autofocus: true,
+              controller: nameController,
+              decoration: const InputDecoration(
+                label: Text.rich(
+                  TextSpan(
+                    children: <InlineSpan>[
+                      WidgetSpan(
+                        child: Text(
+                          'Name',
+                        ),
+                      ),
+                      WidgetSpan(
+                        child: Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
                   ),
-                  WidgetSpan(
-                    child: Text(
-                      '*',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                ],
+                ),
+                border: OutlineInputBorder(),
               ),
+              keyboardType: TextInputType.name,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a name';
+                }
+                return null;
+              },
             ),
           ),
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly
-          ],
-        ),
-        TextFormField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            label: Text.rich(
-              TextSpan(
-                children: <InlineSpan>[
-                  WidgetSpan(
-                    child: Text(
-                      'Story Prompt',
-                    ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextFormField(
+              controller: ageController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                label: Text.rich(
+                  TextSpan(
+                    children: <InlineSpan>[
+                      WidgetSpan(
+                        child: Text(
+                          'Age',
+                        ),
+                      ),
+                      WidgetSpan(
+                        child: Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
                   ),
-                  WidgetSpan(
-                    child: Text(
-                      '*',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                ],
+                ),
               ),
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly
+              ],
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter an age';
+                }
+                return null;
+              },
             ),
-            hintText: 'A story about kids going to space and exploring the solar system',
           ),
-          maxLines: 4,
-          validator: (String? value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a prompt';
-            }
-            return null;
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: ElevatedButton(
-            onPressed: () {
-              // Validate will return true if the form is valid, or false if
-              // the form is invalid.
-              if (_formKey.currentState!.validate()) {
-                // Process data.
-              }
-            },
-            child: const Text('Generate'),
+          const SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextFormField(
+              controller: promptController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                label: Text.rich(
+                  TextSpan(
+                    children: <InlineSpan>[
+                      WidgetSpan(
+                        child: Text(
+                          'Story Prompt',
+                        ),
+                      ),
+                      WidgetSpan(
+                        child: Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                hintText:
+                    'A story about kids riding a magic school bus to space and exploring the solar system',
+              ),
+              maxLines: 4,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a prompt';
+                }
+                return null;
+              },
+            ),
           ),
-        ),
-      ]),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                // Validate will return true if the form is valid, or false if
+                // the form is invalid.
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Generating Book')),
+                  );
+                }
+              },
+              child: const Text('Generate'),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }
