@@ -646,6 +646,7 @@ type Mutation {
   deleteManyBookRevision(where: BookRevisionWhereInput): AffectedRowsOutput!
   deleteOneBook(where: BookWhereUniqueInput!): Book
   deleteOneBookRevision(where: BookRevisionWhereUniqueInput!): BookRevision
+  generateBookFromPrompt: Book!
   updateManyBook(data: BookUpdateManyMutationInput!, where: BookWhereInput): AffectedRowsOutput!
   updateManyBookRevision(data: BookRevisionUpdateManyMutationInput!, where: BookRevisionWhereInput): AffectedRowsOutput!
   updateOneBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book

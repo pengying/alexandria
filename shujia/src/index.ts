@@ -9,6 +9,7 @@ import { DateTimeResolver } from 'graphql-scalars'
 import * as tq from 'type-graphql'
 import { Context, context } from './context'
 import { resolvers } from "@generated/type-graphql"
+import { PromptResolver } from "./classes/prompt.resolver"
 
 
 const app = async () => {
@@ -17,7 +18,7 @@ const app = async () => {
   // })
 
   const schema = await tq.buildSchema({
-    resolvers,
+    resolvers: [...resolvers, PromptResolver ],
     scalarsMap: [{ type: GraphQLScalarType, scalar: DateTimeResolver }],
     validate: { forbidUnknownValues: false },
     emitSchemaFile: path.resolve(__dirname, "schema.graphql"),
