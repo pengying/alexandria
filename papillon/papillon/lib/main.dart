@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:papillon/prompt.dart';
 import 'package:provider/provider.dart';
 
+import 'themes.dart';
 import 'appstate.dart';
 
 void main() {
@@ -18,10 +19,7 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'Namer App',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-        ),
+        theme: theme,
         home: MyHomePage(),
       ),
     );
@@ -68,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (value) {
-                    print('selected: $value');
                     setState(() {
                       selectedIndex = value;
                     });

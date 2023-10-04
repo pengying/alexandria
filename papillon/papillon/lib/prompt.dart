@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -155,8 +154,9 @@ class _PromptState extends State<Prompt> {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Generating Book')),
-                  );
+                  );  
                 }
+                log('name: ${nameController.text}');
               },
               child: const Text('Generate'),
             ),
