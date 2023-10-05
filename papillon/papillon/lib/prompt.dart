@@ -1,10 +1,48 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'graph.dart';
 
 class Prompt extends StatefulWidget {
   @override
   State<Prompt> createState() => _PromptState();
+}
+
+class Album {
+  final int userId;
+  final int id;
+  final String title;
+
+  const Album({
+    required this.userId,
+    required this.id,
+    required this.title,
+  });
+
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
+      userId: json['userId'],
+      id: json['id'],
+      title: json['title'],
+    );
+  }
+
+  static Future<Album> fetchAlbum() async {
+    final response = await http
+        .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Album.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
 }
 
 class _PromptState extends State<Prompt> {
@@ -154,9 +192,36 @@ class _PromptState extends State<Prompt> {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Generating Book')),
-                  );  
+                  );
                 }
+
                 log('name: ${nameController.text}');
+
+                var gQuery = getClient();
+                var gPromise = gQuery.query(options);
+
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return const Dialog(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CircularProgressIndicator(),
+                          Text("Generating"),
+                        ],
+                      ),
+                    );
+                  },
+                );
+
+                gPromise.then((value) {
+                    Navigator.pop(context);
+                    log(json.encode(value.data));
+                },).catchError((error) {
+                  log(error);
+                });
               },
               child: const Text('Generate'),
             ),
