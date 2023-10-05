@@ -39,6 +39,8 @@ dependencies:
   provider: ^6.0.5
   http: ^1.1.0
   graphql: ^5.2.0-beta.6
+  graphql_flutter: ^5.2.0-beta.5
+  flutter_hooks: ^0.18.6
 
   
 dev_dependencies:
