@@ -25,3 +25,4 @@ GraphQLClient getClient() {
     link: _httpLink,
   );
 }
+

@@ -646,7 +646,7 @@ type Mutation {
   deleteManyBookRevision(where: BookRevisionWhereInput): AffectedRowsOutput!
   deleteOneBook(where: BookWhereUniqueInput!): Book
   deleteOneBookRevision(where: BookRevisionWhereUniqueInput!): BookRevision
-  generateBookFromPrompt: Book!
+  generateBookFromPrompt(data: PromptInput!): Book!
   updateManyBook(data: BookUpdateManyMutationInput!, where: BookWhereInput): AffectedRowsOutput!
   updateManyBookRevision(data: BookRevisionUpdateManyMutationInput!, where: BookRevisionWhereInput): AffectedRowsOutput!
   updateOneBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book
@@ -813,6 +813,12 @@ input NestedUuidWithAggregatesFilter {
 enum NullsOrder {
   first
   last
+}
+
+input PromptInput {
+  age: Int!
+  name: String!
+  prompt: String!
 }
 
 type Query {
