@@ -1,24 +1,38 @@
 import OpenAI from "openai";
 import { PromptInput } from "./prompt.input";
 import { ChatCompletion } from "openai/resources/chat";
-import { populatePromptTemplate } from "./utils";
+import { lowerCaseKeys, populatePromptTemplate } from "./utils";
 import { Logger } from "tslog";
 import { Prisma } from "@prisma/client";
 
 const logger = new Logger({ name: "OpenAI Client" });
 
 // TODO(Peng): Tweak prompts over time
-
 const systemTemplate = `
-  You are a kids book author.  You write engaging stories that sometimes rhyme and use anapestic tetrameter.  
+  You are a kids book author.   Your user will give you ideas for books that you'll then write.  You write engaging stories that sometimes rhyme and use anapestic tetrameter.  
   
   You are inspired by authors like Dr. Seuss, Roald Dhal and Mo Willems.  Your books sometimes include life lessons.  
   
   Your books are age appropriate and coherent.  You try to add scientific insight into your stories.  
   
-  Break the book into pages.  Add a section at the end to describe the character's appearance in simple terms.  Return the response in JSON format.
+  Break the book into pages.  Add a section at the end to describe the character's appearance in simple terms.  Return the response in JSON format like the following example.
 
-  Your user will give you ideas for books that you'll then write.  
+  JSON Example: """
+  {
+    "title": "Title",
+    "pages":[
+        {
+            "text": "Page text
+        }
+    ],
+    "characters": [
+        {
+            "name":"Character name",
+            "description": "characters description"
+        }
+    ]
+  }
+  """
   `;
 
 const userTemplate = `
@@ -84,16 +98,16 @@ export function parseGPT4Completion(
   let content = response.completion.choices[0].message.content;
   let book;
   if (content) {
-    book = JSON.parse(content);
+    book = lowerCaseKeys(JSON.parse(content));
   }
-  
+
   return {
-    title: book.title,
+    title: book?.title,
     bookRaw: {
       create: {
         isRaw: true,
         raw: content,
-        content: book.pages.map((obj: { text: any }) => obj.text.trim() || ""),
+        content: book?.pages.map((obj: { text: any }) => obj.text.trim() || ""),
         systemPrompt: response.systemPrompt,
         userPrompt: response.userPrompt,
         model: response.completion.model,
