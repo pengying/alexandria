@@ -167,6 +167,7 @@ type BookRevision {
   content: [String!]!
   createdAt: DateTimeISO!
   isRaw: Boolean!
+  raw: String!
   updatedAt: DateTimeISO!
   uuid: String!
 }
@@ -178,6 +179,7 @@ type BookRevisionCountAggregate {
   content: Int!
   createdAt: Int!
   isRaw: Int!
+  raw: Int!
   updatedAt: Int!
   uuid: Int!
 }
@@ -188,6 +190,7 @@ input BookRevisionCountOrderByAggregateInput {
   content: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
+  raw: SortOrder
   updatedAt: SortOrder
   uuid: SortOrder
 }
@@ -198,6 +201,7 @@ input BookRevisionCreateInput {
   content: BookRevisionCreatecontentInput
   createdAt: DateTimeISO
   isRaw: Boolean
+  raw: String
   updatedAt: DateTimeISO
   uuid: String
 }
@@ -208,6 +212,7 @@ input BookRevisionCreateManyInput {
   content: BookRevisionCreatecontentInput
   createdAt: DateTimeISO
   isRaw: Boolean
+  raw: String
   updatedAt: DateTimeISO
   uuid: String
 }
@@ -239,6 +244,7 @@ input BookRevisionCreateWithoutBookEditedInput {
   content: BookRevisionCreatecontentInput
   createdAt: DateTimeISO
   isRaw: Boolean
+  raw: String
   updatedAt: DateTimeISO
   uuid: String
 }
@@ -248,6 +254,7 @@ input BookRevisionCreateWithoutBookRawInput {
   content: BookRevisionCreatecontentInput
   createdAt: DateTimeISO
   isRaw: Boolean
+  raw: String
   updatedAt: DateTimeISO
   uuid: String
 }
@@ -265,6 +272,7 @@ type BookRevisionGroupBy {
   content: [String!]
   createdAt: DateTimeISO!
   isRaw: Boolean!
+  raw: String!
   updatedAt: DateTimeISO!
   uuid: String!
 }
@@ -274,6 +282,7 @@ type BookRevisionMaxAggregate {
   bookRawId: String
   createdAt: DateTimeISO
   isRaw: Boolean
+  raw: String
   updatedAt: DateTimeISO
   uuid: String
 }
@@ -283,6 +292,7 @@ input BookRevisionMaxOrderByAggregateInput {
   bookRawId: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
+  raw: SortOrder
   updatedAt: SortOrder
   uuid: SortOrder
 }
@@ -292,6 +302,7 @@ type BookRevisionMinAggregate {
   bookRawId: String
   createdAt: DateTimeISO
   isRaw: Boolean
+  raw: String
   updatedAt: DateTimeISO
   uuid: String
 }
@@ -301,6 +312,7 @@ input BookRevisionMinOrderByAggregateInput {
   bookRawId: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
+  raw: SortOrder
   updatedAt: SortOrder
   uuid: SortOrder
 }
@@ -319,6 +331,7 @@ input BookRevisionOrderByWithAggregationInput {
   content: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
+  raw: SortOrder
   updatedAt: SortOrder
   uuid: SortOrder
 }
@@ -331,6 +344,7 @@ input BookRevisionOrderByWithRelationInput {
   content: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
+  raw: SortOrder
   updatedAt: SortOrder
   uuid: SortOrder
 }
@@ -341,6 +355,7 @@ enum BookRevisionScalarFieldEnum {
   content
   createdAt
   isRaw
+  raw
   updatedAt
   uuid
 }
@@ -354,6 +369,7 @@ input BookRevisionScalarWhereWithAggregatesInput {
   content: StringNullableListFilter
   createdAt: DateTimeWithAggregatesFilter
   isRaw: BoolWithAggregatesFilter
+  raw: StringWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
   uuid: UuidWithAggregatesFilter
 }
@@ -364,6 +380,7 @@ input BookRevisionUpdateInput {
   content: BookRevisionUpdatecontentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   isRaw: BoolFieldUpdateOperationsInput
+  raw: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
 }
@@ -372,6 +389,7 @@ input BookRevisionUpdateManyMutationInput {
   content: BookRevisionUpdatecontentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   isRaw: BoolFieldUpdateOperationsInput
+  raw: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
 }
@@ -411,6 +429,7 @@ input BookRevisionUpdateWithoutBookEditedInput {
   content: BookRevisionUpdatecontentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   isRaw: BoolFieldUpdateOperationsInput
+  raw: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
 }
@@ -420,6 +439,7 @@ input BookRevisionUpdateWithoutBookRawInput {
   content: BookRevisionUpdatecontentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   isRaw: BoolFieldUpdateOperationsInput
+  raw: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
 }
@@ -452,6 +472,7 @@ input BookRevisionWhereInput {
   content: StringNullableListFilter
   createdAt: DateTimeFilter
   isRaw: BoolFilter
+  raw: StringFilter
   updatedAt: DateTimeFilter
   uuid: UuidFilter
 }
@@ -467,6 +488,7 @@ input BookRevisionWhereUniqueInput {
   content: StringNullableListFilter
   createdAt: DateTimeFilter
   isRaw: BoolFilter
+  raw: StringFilter
   updatedAt: DateTimeFilter
   uuid: String
 }

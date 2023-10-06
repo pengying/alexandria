@@ -17,6 +17,7 @@ const logger = new Logger({name:"LangChain"});
 const chat = new ChatOpenAI({
   temperature: 0.1,
   modelName: "gpt-3.5-turbo",
+  verbose: true,
   callbacks: [
     {
         handleLLMEnd(output, runId, parentRunId, tags) {
@@ -32,9 +33,15 @@ const chat = new ChatOpenAI({
 });
 
 const systemTemplate = `
-  You are a kids book author.  You write engaging stories that sometimes rhyme and use anapestic tetrameter.  You are inspired by authors like Dr. Seuss and Mo Willems.  Your books sometimes include life lessons.  Your user will give you ideas for books that you'll then write.  
+  You are a kids book author.  You write engaging stories that sometimes rhyme and use anapestic tetrameter.  
   
-  Your books are age appropriate and coherent.  You try to add scientific insight into your stories.  Break the book into pages delimited by =====.  Add a section ad the end to describe the characters appearance in simple terms.
+  You are inspired by authors like Dr. Seuss, Roald Dhal and Mo Willems.  Your books sometimes include life lessons.  
+  
+  Your books are age appropriate and coherent.  You try to add scientific insight into your stories.  
+  
+  Break the book into pages.  Add a section at the end to describe the characters appearance in simple terms.  Return the response in JSON format.
+
+  Your user will give you ideas for books that you'll then write.  
   `;
 
 const humanTemplate = `
@@ -58,6 +65,8 @@ export class OpenAIConnector {
       name: prompt.name,
       age: prompt.age,
     });
+
+    
     result.totalCompletionTokens = totalCompletionTokens;
     result.totalPromptTokens = totalPromptTokens;
     result.executionTokens = totalExecutionTokens;

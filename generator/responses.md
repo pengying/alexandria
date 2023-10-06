@@ -988,3 +988,47 @@ Title: Julie's First Day at Khan Lab School\n" +
   executionTokens: 591,
   id: ''
 }
+
+
+{
+  text: '{\n' +
+    `  "title": "Jackie's Pumpkin Patch Adventure",\n` +
+    '  "pages": [\n' +
+    '    {\n' +
+    '      "page_number": 1,\n' +
+    `      "content": "Once upon a time, in a town not too far,\\nThere lived a little girl named Jackie, a shining star.\\nWith Halloween approaching, her school planned a trip,\\nTo a pumpkin patch, where they'd have a rip-roaring trip."\n` +
+    '    },\n' +
+    '    {\n' +
+    '      "page_number": 2,\n' +
+    '      "content": "The children hopped on a big yellow bus,\\nExcitement filled the air, there was no need to fuss.\\nThey arrived at the patch, with pumpkins galore,\\nRows and rows of orange, what a sight to adore!"\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "page_number": 3,\n' +
+    '      "content": "Jackie searched high and low, for the perfect pumpkin,\\nOne that was round and plump, not too big or too thin.\\nShe picked one up, it was as orange as can be,\\nWith a big smile on her face, she knew it was meant to be."\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "page_number": 4,\n' +
+    '      "content": "Back at school, Jackie got to work, with scissors and glue,\\nShe carved a spooky face, with eyes that seemed to glow.\\nShe placed a candle inside, and lit it up with care,\\nThe pumpkin glowed brightly, spreading Halloween cheer."\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "page_number": 5,\n' +
+    '      "content": "On Halloween night, Jackie put on her costume with glee,\\nShe dressed up as a scientist, as clever as can be.\\nWith her pumpkin by her side, she went trick-or-treating,\\nSpreading joy and laughter, with every sweet greeting."\n' +
+    '    },\n' +
+    '    {\n' +
+    '      "page_number": 6,\n' +
+    `      "content": "As Jackie walked the streets, she shared a little fact,\\nPumpkins are not just for carving, they're also a healthy snack.\\nShe told her friends about the vitamins they contain,\\nAnd how they help our bodies, making us strong and not in pain."\n` +
+    '    },\n' +
+    '    {\n' +
+    '      "page_number": 7,\n' +
+    `      "content": "The night was a success, filled with fun and delight,\\nJackie's pumpkin patch adventure was truly out of sight.\\nShe learned about pumpkins, and shared her newfound knowledge,\\nWith her friends and family, spreading wisdom from college."\n` +
+    '    }\n' +
+    '  ],\n' +
+    '  "character_appearance": "Jackie has curly brown hair and bright blue eyes. She wears glasses and has a big smile that lights up the room. She loves wearing colorful clothes and always has a backpack filled with books and curiosity."\n' +
+    '}',
+  totalCompletionTokens: 561,
+  totalPromptTokens: 162,
+  executionTokens: 723,
+  id: '0e0d3003-c425-4bf9-ae08-dc079499fbc5'
+}
+
+"{\n  \"title\": \"Jill Learns to Swim\",\n  \"pages\": [\n    {\n      \"page_number\": 1,\n      \"text\": \"Once upon a time, there was a girl named Jill, who lived by a peaceful, calm hill.\"\n    },\n    {\n      \"page_number\": 2,\n      \"text\": \"She loved to run and play, but there was one thing that made her dismay.\"\n    },\n    {\n      \"page_number\": 3,\n      \"text\": \"She was afraid of the water, it made her shiver, unlike her brother and sister.\"\n    },\n    {\n      \"page_number\": 4,\n      \"text\": \"One sunny day, she decided to be brave, 'I will learn to swim, I will not cave.'\"\n    },\n    {\n      \"page_number\": 5,\n      \"text\": \"She put on her swimsuit, with a little fright, but her heart was filled with light.\"\n    },\n    {\n      \"page_number\": 6,\n      \"text\": \"With a deep breath, she stepped into the pool, feeling the water cool.\"\n    },\n    {\n      \"page_number\": 7,\n      \"text\": \"She splashed and kicked, her fear started to fade, she was no longer afraid.\"\n    },\n    {\n      \"page_number\": 8,\n      \"text\": \"She learned to float, she learned to glide, with every stroke, she felt pride.\"\n    },\n    {\n      \"page_number\": 9,\n      \"text\": \"Jill was swimming, oh what a sight, her face was filled with delight.\"\n    },\n    {\n      \"page_number\": 10,\n      \"text\": \"From that day on, Jill loved to swim, she learned a lesson, thanks to a whim.\"\n    }\n  ],\n  \"characters\": [\n    {\n      \"name\": \"Jill\",\n      \"description\": \"Jill is a 5-year-old girl with bright, curious eyes and a heart full of courage. She has short, brown hair that she ties in a ponytail when she goes swimming. She wears a pink swimsuit with a picture of a dolphin on it. Jill is brave and loves to learn new things.\"\n    }\n  ],\n  \"lesson\": \"The story teaches that overcoming fears can open up new experiences and joys. It encourages children to be brave and try new things.\"\n}"

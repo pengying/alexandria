@@ -30,4 +30,5 @@ model BookRevision {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   content String[]
+  raw String @default("untracked")
 }
