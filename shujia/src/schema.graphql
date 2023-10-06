@@ -14,9 +14,11 @@ type AggregateBook {
 }
 
 type AggregateBookRevision {
+  _avg: BookRevisionAvgAggregate
   _count: BookRevisionCountAggregate
   _max: BookRevisionMaxAggregate
   _min: BookRevisionMinAggregate
+  _sum: BookRevisionSumAggregate
 }
 
 type Book {
@@ -164,56 +166,103 @@ type BookRevision {
   bookEditedId: String
   bookRaw(where: BookWhereInput): Book
   bookRawId: String
+  completionTokens: Int
   content: [String!]!
   createdAt: DateTimeISO!
   isRaw: Boolean!
-  raw: String!
+  model: String
+  promptTokens: Int
+  raw: String
+  requestId: String
+  systemPrompt: String
+  totalTokens: Int
   updatedAt: DateTimeISO!
+  userPrompt: String
   uuid: String!
+}
+
+type BookRevisionAvgAggregate {
+  completionTokens: Float
+  promptTokens: Float
+  totalTokens: Float
+}
+
+input BookRevisionAvgOrderByAggregateInput {
+  completionTokens: SortOrder
+  promptTokens: SortOrder
+  totalTokens: SortOrder
 }
 
 type BookRevisionCountAggregate {
   _all: Int!
   bookEditedId: Int!
   bookRawId: Int!
+  completionTokens: Int!
   content: Int!
   createdAt: Int!
   isRaw: Int!
+  model: Int!
+  promptTokens: Int!
   raw: Int!
+  requestId: Int!
+  systemPrompt: Int!
+  totalTokens: Int!
   updatedAt: Int!
+  userPrompt: Int!
   uuid: Int!
 }
 
 input BookRevisionCountOrderByAggregateInput {
   bookEditedId: SortOrder
   bookRawId: SortOrder
+  completionTokens: SortOrder
   content: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
+  model: SortOrder
+  promptTokens: SortOrder
   raw: SortOrder
+  requestId: SortOrder
+  systemPrompt: SortOrder
+  totalTokens: SortOrder
   updatedAt: SortOrder
+  userPrompt: SortOrder
   uuid: SortOrder
 }
 
 input BookRevisionCreateInput {
   bookEdited: BookCreateNestedOneWithoutBookEditedInput
   bookRaw: BookCreateNestedOneWithoutBookRawInput
+  completionTokens: Int
   content: BookRevisionCreatecontentInput
   createdAt: DateTimeISO
   isRaw: Boolean
+  model: String
+  promptTokens: Int
   raw: String
+  requestId: String
+  systemPrompt: String
+  totalTokens: Int
   updatedAt: DateTimeISO
+  userPrompt: String
   uuid: String
 }
 
 input BookRevisionCreateManyInput {
   bookEditedId: String
   bookRawId: String
+  completionTokens: Int
   content: BookRevisionCreatecontentInput
   createdAt: DateTimeISO
   isRaw: Boolean
+  model: String
+  promptTokens: Int
   raw: String
+  requestId: String
+  systemPrompt: String
+  totalTokens: Int
   updatedAt: DateTimeISO
+  userPrompt: String
   uuid: String
 }
 
@@ -241,21 +290,35 @@ input BookRevisionCreateOrConnectWithoutBookRawInput {
 
 input BookRevisionCreateWithoutBookEditedInput {
   bookRaw: BookCreateNestedOneWithoutBookRawInput
+  completionTokens: Int
   content: BookRevisionCreatecontentInput
   createdAt: DateTimeISO
   isRaw: Boolean
+  model: String
+  promptTokens: Int
   raw: String
+  requestId: String
+  systemPrompt: String
+  totalTokens: Int
   updatedAt: DateTimeISO
+  userPrompt: String
   uuid: String
 }
 
 input BookRevisionCreateWithoutBookRawInput {
   bookEdited: BookCreateNestedOneWithoutBookEditedInput
+  completionTokens: Int
   content: BookRevisionCreatecontentInput
   createdAt: DateTimeISO
   isRaw: Boolean
+  model: String
+  promptTokens: Int
   raw: String
+  requestId: String
+  systemPrompt: String
+  totalTokens: Int
   updatedAt: DateTimeISO
+  userPrompt: String
   uuid: String
 }
 
@@ -264,56 +327,93 @@ input BookRevisionCreatecontentInput {
 }
 
 type BookRevisionGroupBy {
+  _avg: BookRevisionAvgAggregate
   _count: BookRevisionCountAggregate
   _max: BookRevisionMaxAggregate
   _min: BookRevisionMinAggregate
+  _sum: BookRevisionSumAggregate
   bookEditedId: String
   bookRawId: String
+  completionTokens: Int
   content: [String!]
   createdAt: DateTimeISO!
   isRaw: Boolean!
-  raw: String!
+  model: String
+  promptTokens: Int
+  raw: String
+  requestId: String
+  systemPrompt: String
+  totalTokens: Int
   updatedAt: DateTimeISO!
+  userPrompt: String
   uuid: String!
 }
 
 type BookRevisionMaxAggregate {
   bookEditedId: String
   bookRawId: String
+  completionTokens: Int
   createdAt: DateTimeISO
   isRaw: Boolean
+  model: String
+  promptTokens: Int
   raw: String
+  requestId: String
+  systemPrompt: String
+  totalTokens: Int
   updatedAt: DateTimeISO
+  userPrompt: String
   uuid: String
 }
 
 input BookRevisionMaxOrderByAggregateInput {
   bookEditedId: SortOrder
   bookRawId: SortOrder
+  completionTokens: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
+  model: SortOrder
+  promptTokens: SortOrder
   raw: SortOrder
+  requestId: SortOrder
+  systemPrompt: SortOrder
+  totalTokens: SortOrder
   updatedAt: SortOrder
+  userPrompt: SortOrder
   uuid: SortOrder
 }
 
 type BookRevisionMinAggregate {
   bookEditedId: String
   bookRawId: String
+  completionTokens: Int
   createdAt: DateTimeISO
   isRaw: Boolean
+  model: String
+  promptTokens: Int
   raw: String
+  requestId: String
+  systemPrompt: String
+  totalTokens: Int
   updatedAt: DateTimeISO
+  userPrompt: String
   uuid: String
 }
 
 input BookRevisionMinOrderByAggregateInput {
   bookEditedId: SortOrder
   bookRawId: SortOrder
+  completionTokens: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
+  model: SortOrder
+  promptTokens: SortOrder
   raw: SortOrder
+  requestId: SortOrder
+  systemPrompt: SortOrder
+  totalTokens: SortOrder
   updatedAt: SortOrder
+  userPrompt: SortOrder
   uuid: SortOrder
 }
 
@@ -323,16 +423,25 @@ input BookRevisionNullableRelationFilter {
 }
 
 input BookRevisionOrderByWithAggregationInput {
+  _avg: BookRevisionAvgOrderByAggregateInput
   _count: BookRevisionCountOrderByAggregateInput
   _max: BookRevisionMaxOrderByAggregateInput
   _min: BookRevisionMinOrderByAggregateInput
+  _sum: BookRevisionSumOrderByAggregateInput
   bookEditedId: SortOrderInput
   bookRawId: SortOrderInput
+  completionTokens: SortOrderInput
   content: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
-  raw: SortOrder
+  model: SortOrderInput
+  promptTokens: SortOrderInput
+  raw: SortOrderInput
+  requestId: SortOrderInput
+  systemPrompt: SortOrderInput
+  totalTokens: SortOrderInput
   updatedAt: SortOrder
+  userPrompt: SortOrderInput
   uuid: SortOrder
 }
 
@@ -341,22 +450,36 @@ input BookRevisionOrderByWithRelationInput {
   bookEditedId: SortOrderInput
   bookRaw: BookOrderByWithRelationInput
   bookRawId: SortOrderInput
+  completionTokens: SortOrderInput
   content: SortOrder
   createdAt: SortOrder
   isRaw: SortOrder
-  raw: SortOrder
+  model: SortOrderInput
+  promptTokens: SortOrderInput
+  raw: SortOrderInput
+  requestId: SortOrderInput
+  systemPrompt: SortOrderInput
+  totalTokens: SortOrderInput
   updatedAt: SortOrder
+  userPrompt: SortOrderInput
   uuid: SortOrder
 }
 
 enum BookRevisionScalarFieldEnum {
   bookEditedId
   bookRawId
+  completionTokens
   content
   createdAt
   isRaw
+  model
+  promptTokens
   raw
+  requestId
+  systemPrompt
+  totalTokens
   updatedAt
+  userPrompt
   uuid
 }
 
@@ -366,31 +489,64 @@ input BookRevisionScalarWhereWithAggregatesInput {
   OR: [BookRevisionScalarWhereWithAggregatesInput!]
   bookEditedId: UuidNullableWithAggregatesFilter
   bookRawId: UuidNullableWithAggregatesFilter
+  completionTokens: IntNullableWithAggregatesFilter
   content: StringNullableListFilter
   createdAt: DateTimeWithAggregatesFilter
   isRaw: BoolWithAggregatesFilter
-  raw: StringWithAggregatesFilter
+  model: StringNullableWithAggregatesFilter
+  promptTokens: IntNullableWithAggregatesFilter
+  raw: StringNullableWithAggregatesFilter
+  requestId: StringNullableWithAggregatesFilter
+  systemPrompt: StringNullableWithAggregatesFilter
+  totalTokens: IntNullableWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
+  userPrompt: StringNullableWithAggregatesFilter
   uuid: UuidWithAggregatesFilter
+}
+
+type BookRevisionSumAggregate {
+  completionTokens: Int
+  promptTokens: Int
+  totalTokens: Int
+}
+
+input BookRevisionSumOrderByAggregateInput {
+  completionTokens: SortOrder
+  promptTokens: SortOrder
+  totalTokens: SortOrder
 }
 
 input BookRevisionUpdateInput {
   bookEdited: BookUpdateOneWithoutBookEditedNestedInput
   bookRaw: BookUpdateOneWithoutBookRawNestedInput
+  completionTokens: NullableIntFieldUpdateOperationsInput
   content: BookRevisionUpdatecontentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   isRaw: BoolFieldUpdateOperationsInput
-  raw: StringFieldUpdateOperationsInput
+  model: NullableStringFieldUpdateOperationsInput
+  promptTokens: NullableIntFieldUpdateOperationsInput
+  raw: NullableStringFieldUpdateOperationsInput
+  requestId: NullableStringFieldUpdateOperationsInput
+  systemPrompt: NullableStringFieldUpdateOperationsInput
+  totalTokens: NullableIntFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  userPrompt: NullableStringFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
 }
 
 input BookRevisionUpdateManyMutationInput {
+  completionTokens: NullableIntFieldUpdateOperationsInput
   content: BookRevisionUpdatecontentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   isRaw: BoolFieldUpdateOperationsInput
-  raw: StringFieldUpdateOperationsInput
+  model: NullableStringFieldUpdateOperationsInput
+  promptTokens: NullableIntFieldUpdateOperationsInput
+  raw: NullableStringFieldUpdateOperationsInput
+  requestId: NullableStringFieldUpdateOperationsInput
+  systemPrompt: NullableStringFieldUpdateOperationsInput
+  totalTokens: NullableIntFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  userPrompt: NullableStringFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
 }
 
@@ -426,21 +582,35 @@ input BookRevisionUpdateToOneWithWhereWithoutBookRawInput {
 
 input BookRevisionUpdateWithoutBookEditedInput {
   bookRaw: BookUpdateOneWithoutBookRawNestedInput
+  completionTokens: NullableIntFieldUpdateOperationsInput
   content: BookRevisionUpdatecontentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   isRaw: BoolFieldUpdateOperationsInput
-  raw: StringFieldUpdateOperationsInput
+  model: NullableStringFieldUpdateOperationsInput
+  promptTokens: NullableIntFieldUpdateOperationsInput
+  raw: NullableStringFieldUpdateOperationsInput
+  requestId: NullableStringFieldUpdateOperationsInput
+  systemPrompt: NullableStringFieldUpdateOperationsInput
+  totalTokens: NullableIntFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  userPrompt: NullableStringFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
 }
 
 input BookRevisionUpdateWithoutBookRawInput {
   bookEdited: BookUpdateOneWithoutBookEditedNestedInput
+  completionTokens: NullableIntFieldUpdateOperationsInput
   content: BookRevisionUpdatecontentInput
   createdAt: DateTimeFieldUpdateOperationsInput
   isRaw: BoolFieldUpdateOperationsInput
-  raw: StringFieldUpdateOperationsInput
+  model: NullableStringFieldUpdateOperationsInput
+  promptTokens: NullableIntFieldUpdateOperationsInput
+  raw: NullableStringFieldUpdateOperationsInput
+  requestId: NullableStringFieldUpdateOperationsInput
+  systemPrompt: NullableStringFieldUpdateOperationsInput
+  totalTokens: NullableIntFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  userPrompt: NullableStringFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
 }
 
@@ -469,11 +639,18 @@ input BookRevisionWhereInput {
   bookEditedId: UuidNullableFilter
   bookRaw: BookNullableRelationFilter
   bookRawId: UuidNullableFilter
+  completionTokens: IntNullableFilter
   content: StringNullableListFilter
   createdAt: DateTimeFilter
   isRaw: BoolFilter
-  raw: StringFilter
+  model: StringNullableFilter
+  promptTokens: IntNullableFilter
+  raw: StringNullableFilter
+  requestId: StringNullableFilter
+  systemPrompt: StringNullableFilter
+  totalTokens: IntNullableFilter
   updatedAt: DateTimeFilter
+  userPrompt: StringNullableFilter
   uuid: UuidFilter
 }
 
@@ -485,11 +662,18 @@ input BookRevisionWhereUniqueInput {
   bookEditedId: String
   bookRaw: BookNullableRelationFilter
   bookRawId: String
+  completionTokens: IntNullableFilter
   content: StringNullableListFilter
   createdAt: DateTimeFilter
   isRaw: BoolFilter
-  raw: StringFilter
+  model: StringNullableFilter
+  promptTokens: IntNullableFilter
+  raw: StringNullableFilter
+  requestId: StringNullableFilter
+  systemPrompt: StringNullableFilter
+  totalTokens: IntNullableFilter
   updatedAt: DateTimeFilter
+  userPrompt: StringNullableFilter
   uuid: String
 }
 
@@ -659,6 +843,33 @@ input DateTimeWithAggregatesFilter {
   notIn: [DateTimeISO!]
 }
 
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input IntNullableWithAggregatesFilter {
+  _avg: NestedFloatNullableFilter
+  _count: NestedIntNullableFilter
+  _max: NestedIntNullableFilter
+  _min: NestedIntNullableFilter
+  _sum: NestedIntNullableFilter
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableWithAggregatesFilter
+  notIn: [Int!]
+}
+
 type Mutation {
   createManyBook(data: [BookCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyBookRevision(data: [BookRevisionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
@@ -715,6 +926,17 @@ input NestedDateTimeWithAggregatesFilter {
   notIn: [DateTimeISO!]
 }
 
+input NestedFloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float!]
+}
+
 input NestedIntFilter {
   equals: Int
   gt: Int
@@ -734,6 +956,22 @@ input NestedIntNullableFilter {
   lt: Int
   lte: Int
   not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedIntNullableWithAggregatesFilter {
+  _avg: NestedFloatNullableFilter
+  _count: NestedIntNullableFilter
+  _max: NestedIntNullableFilter
+  _min: NestedIntNullableFilter
+  _sum: NestedIntNullableFilter
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableWithAggregatesFilter
   notIn: [Int!]
 }
 
@@ -761,6 +999,23 @@ input NestedStringNullableFilter {
   lt: String
   lte: String
   not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedStringNullableFilter
+  _min: NestedStringNullableFilter
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableWithAggregatesFilter
   notIn: [String!]
   startsWith: String
 }
@@ -832,6 +1087,18 @@ input NestedUuidWithAggregatesFilter {
   notIn: [String!]
 }
 
+input NullableIntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
+  set: Int
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
 enum NullsOrder {
   first
   last
@@ -894,12 +1161,45 @@ input StringFilter {
   startsWith: String
 }
 
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
 input StringNullableListFilter {
   equals: [String!]
   has: String
   hasEvery: [String!]
   hasSome: [String!]
   isEmpty: Boolean
+}
+
+input StringNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedStringNullableFilter
+  _min: NestedStringNullableFilter
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  mode: QueryMode
+  not: NestedStringNullableWithAggregatesFilter
+  notIn: [String!]
+  startsWith: String
 }
 
 input StringWithAggregatesFilter {

@@ -30,5 +30,12 @@ model BookRevision {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   content String[]
-  raw String @default("untracked")
+  raw String? 
+  systemPrompt String?
+  userPrompt String?
+  model String?
+  requestId String?
+  promptTokens Int?
+  completionTokens Int?
+  totalTokens Int?
 }
