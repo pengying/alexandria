@@ -197,8 +197,7 @@ class _PromptState extends State<Prompt> {
 
                 log('name: ${nameController.text}');
 
-                var gQuery = getClient();
-                var gPromise = gQuery.query(options);
+                var gPromise = generateBookFromPrompt(name: nameController.text, age: int.parse(ageController.text), prompt: promptController.text);
 
                 showDialog(
                   context: context,

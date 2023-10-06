@@ -2,8 +2,11 @@
   "name": "shujia",
   "version": "0.0.1",
   "scripts": {
-    "dev": "ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
-    "dev:debug": "ts-node-dev --transpile-only --respawn --inspect=4321 src/index.ts"
+    "dev": "npm run generate && ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
+    "dev:debug": "npm run generate && ts-node-dev --transpile-only --respawn --inspect=4321 src/index.ts",
+    "generate": "npx prisma generate",
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js"
   },
   "dependencies": {
     "@apollo/server": "4.9.3",
@@ -14,6 +17,7 @@
     "graphql-scalars": "1.22.2",
     "langchain": "^0.0.159",
     "reflect-metadata": "0.1.13",
+    "tslog": "^4.9.2",
     "type-graphql": "2.0.0-beta.3"
   },
   "devDependencies": {

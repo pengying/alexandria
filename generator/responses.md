@@ -689,3 +689,302 @@ Dizzy and Daisy waking up in their colourful and comfortable room, hugging each 
   }
 }
 
+{
+  result: {
+    text: "Title: Jackie's Underwater Adventure\n" +
+      '\n' +
+      'Characters:\n' +
+      '1. Jackie - A curious and adventurous 5-year-old girl with short brown hair and bright blue eyes.\n' +
+      '2. Captain Finley - A friendly and wise old sailor with a long white beard and a weathered face.\n' +
+      '\n' +
+      '====================================\n' +
+      '\n' +
+      'Page 1:\n' +
+      'Once upon a time, in a land not too far,\n' +
+      'Lived a little girl named Jackie, a shining star.\n' +
+      'With her curious mind and a heart full of glee,\n' +
+      'She dreamed of exploring the depths of the sea.\n' +
+      '\n' +
+      'Page 2:\n' +
+      'One sunny day, Jackie met Captain Finley,\n' +
+      'A sailor with stories that made her eyes twinkle brightly.\n' +
+      'He told her tales of creatures beneath the waves,\n' +
+      'Of colorful fish and hidden underwater caves.\n' +
+      '\n' +
+      'Page 3:\n' +
+      "Jackie's heart filled with excitement and delight,\n" +
+      'She asked Captain Finley, "Can we go on a dive?"\n' +
+      'The captain smiled and said, "Oh, my dear,\n' +
+      'Prepare yourself, for an adventure is near!"\n' +
+      '\n' +
+      'Page 4:\n' +
+      'They boarded a boat, sailing far from the shore,\n' +
+      "With the wind in their hair, they couldn't ask for more.\n" +
+      "As they reached the ocean's vast and deep blue,\n" +
+      "Jackie's eyes widened, her dreams were coming true.\n" +
+      '\n' +
+      '====================================\n' +
+      '\n' +
+      'Characters:\n' +
+      '3. Sammy the Seahorse - A friendly seahorse with vibrant colors and a curly tail.\n' +
+      '4. Oliver the Octopus - A playful octopus with eight long tentacles and a mischievous grin.\n' +
+      '\n' +
+      '====================================\n' +
+      '\n' +
+      'Page 5:\n' +
+      'In the depths of the ocean, they began to explore,\n' +
+      "Encountering creatures they'd never seen before.\n" +
+      'They met Sammy the Seahorse, so graceful and small,\n' +
+      'Who swam alongside them, having a ball.\n' +
+      '\n' +
+      'Page 6:\n' +
+      'Oliver the Octopus appeared from a hidden nook,\n' +
+      'With his eight long tentacles, he gave them a look.\n' +
+      'He showed them his tricks, like changing his hue,\n' +
+      'And Jackie giggled, saying, "Oh, how clever of you!"\n' +
+      '\n' +
+      'Page 7:\n' +
+      'As they ventured deeper, the water turned dark,\n' +
+      "But Jackie's courage continued to spark.\n" +
+      'Captain Finley taught her about bioluminescence,\n' +
+      'How creatures glow, creating a magical essence.\n' +
+      '\n' +
+      'Page 8:\n' +
+      'They encountered a school of shimmering jellyfish,\n' +
+      'With their glowing bodies, they made a wish.\n' +
+      'Jackie closed her eyes and made a plea,\n' +
+      '"Let the ocean stay beautiful and free."\n' +
+      '\n' +
+      '====================================\n' +
+      '\n' +
+      'Characters:\n' +
+      '5. Bella the Beluga Whale - A gentle and majestic beluga whale with a white, smooth body.\n' +
+      '\n' +
+      '====================================\n' +
+      '\n' +
+      'Page 9:\n' +
+      'Suddenly, a majestic creature swam into sight,\n' +
+      'Bella the Beluga Whale, shining so bright.\n' +
+      'She sang a song, so melodic and sweet,\n' +
+      'Filling their hearts with a sense of complete.\n' +
+      '\n' +
+      'Page 10:\n' +
+      "Bella shared her wisdom, about the ocean's plight,\n" +
+      'How pollution and plastic were causing a fight.\n' +
+      'Jackie listened intently, her eyes filled with care,\n' +
+      'She promised to protect the ocean, so rare.\n' +
+      '\n' +
+      'Page 11:\n' +
+      'With newfound knowledge and a heart full of love,\n' +
+      'Jackie and Captain Finley rose above.\n' +
+      'They bid farewell to their newfound friends,\n' +
+      'Promising to return, as the adventure never ends.\n' +
+      '\n' +
+      'Page 12:\n' +
+      'Back on the boat, Jackie looked at the sea,\n' +
+      'With a smile on her face, she felt so free.\n' +
+      'She knew in her heart, as she waved goodbye,\n' +
+      "That the ocean's beauty would never run dry.\n" +
+      '\n' +
+      '====================================\n' +
+      '\n' +
+      'And so, dear Jackie, the story is complete,\n' +
+      'Of your underwater adventure, so sweet.\n' +
+      "Remember the lessons you've learned along the way,\n" +
+      "And keep the ocean's beauty in your heart every day."
+  }
+}
+
+Title: Julie's First Day at Khan Lab School\n" +
+      '\n' +
+      'Page 1:\n' +
+      '=====\n' +
+      'Once upon a time, in a daycare so cool,\n' +
+      'Little Julie started at Khan Lab School.\n' +
+      'With her tiny backpack and a heart full of cheer,\n' +
+      'She was ready to make friends, both far and near.\n' +
+      '\n' +
+      'Page 2:\n' +
+      '=====\n' +
+      'As Julie walked in, she looked all around,\n' +
+      'Children playing and laughing, a joyful sound.\n' +
+      'She spotted a girl with curly red hair,\n' +
+      `And thought, "I'll go say hello, if I dare!"\n` +
+      '\n' +
+      'Page 3:\n' +
+      '=====\n' +
+      '"Hi there," said Julie, with a smile so bright,\n' +
+      `"I'm new here, and my name is Julie, alright?"\n` +
+      'The girl turned around, her eyes shining blue,\n' +
+      `"I'm Lily," she said, "and I'd love to be friends with you!"\n` +
+      '\n' +
+      'Page 4:\n' +
+      '=====\n' +
+      'Together they played with blocks and with clay,\n' +
+      'Building tall towers, oh what a display!\n' +
+      'They giggled and laughed, having so much fun,\n' +
+      'Their friendship had only just begun.\n' +
+      '\n' +
+      'Page 5:\n' +
+      '=====\n' +
+      'In the corner, they saw a boy named Max,\n' +
+      'He was busy with puzzles, solving them with no cracks.\n' +
+      'Julie and Lily approached with a grin,\n' +
+      `"Can we join you, Max? We'd love to jump in!"\n` +
+      '\n' +
+      'Page 6:\n' +
+      '=====\n' +
+      'Max looked up, surprised but pleased,\n' +
+      `"Of course," he said, "let's solve these puzzles with ease!"\n` +
+      'They worked together, their minds sharp and keen,\n' +
+      'Solving puzzles, a fantastic team.\n' +
+      '\n' +
+      'Page 7:\n' +
+      '=====\n' +
+      'As the day went on, Julie met even more,\n' +
+      "Children with different interests, that's for sure.\n" +
+      'They played dress-up, painted, and sang songs,\n' +
+      'Learning and growing, all day long.\n' +
+      '\n' +
+      'Page 8:\n' +
+      '=====\n' +
+      'At the end of the day, as the sun started to set,\n' +
+      'Julie felt grateful for the friends she had met.\n' +
+      'In Khan Lab School, she found a place so grand,\n' +
+      'Where friendships blossomed, like flowers in the sand.\n' +
+      '\n' +
+      '=====\n' +
+      'Characters:\n' +
+      '- Julie: A 2-year-old girl with bright eyes and curly brown hair, wearing a colorful backpack.\n' +
+      '- Lily: A girl with curly red hair and shining blue eyes, wearing a pink dress.\n' +
+      '- Max: A boy with messy brown hair and glasses, wearing a green shirt and jeans.'
+  }
+}
+
+{
+  text: "Title: Jackie's Underwater Adventure\n" +
+    '\n' +
+    'Once upon a time, in a land not too far,\n' +
+    'Lived a little girl named Jackie, a curious star.\n' +
+    'She loved to explore, to learn and to see,\n' +
+    'The wonders of the world, both on land and at sea.\n' +
+    '\n' +
+    'One sunny day, Jackie had a brilliant plan,\n' +
+    'To dive into the ocean, with a snorkel in hand.\n' +
+    'She put on her flippers, her goggles, and mask,\n' +
+    'And set off on an adventure, a thrilling task.\n' +
+    '\n' +
+    'As Jackie dove deeper, the water turned blue,\n' +
+    'She marveled at the creatures, both old and new.\n' +
+    'She saw colorful fish, swimming in a school,\n' +
+    'And coral reefs, like a magical jewel.\n' +
+    '\n' +
+    '=====\n' +
+    '\n' +
+    'Down, down, Jackie went, with a sense of delight,\n' +
+    'Discovering the wonders hidden out of sight.\n' +
+    'She spotted a sea turtle, gliding with grace,\n' +
+    'And a playful dolphin, jumping in a chase.\n' +
+    '\n' +
+    'Deeper still, Jackie ventured, with a smile so wide,\n' +
+    'She encountered a giant squid, with tentacles beside.\n' +
+    'It was as big as a bus, with eyes so round,\n' +
+    'Jackie watched in awe, without making a sound.\n' +
+    '\n' +
+    "As she explored the ocean's floor, she found a treasure chest,\n" +
+    'Filled with shiny pearls, the most precious and best.\n' +
+    "But Jackie knew, deep down, that it wasn't for her,\n" +
+    "For the ocean's beauty, she must protect and preserve.\n" +
+    '\n' +
+    '=====\n' +
+    '\n' +
+    'With a heavy heart, Jackie began to ascend,\n' +
+    'Leaving behind the ocean, her newfound friend.\n' +
+    'But she promised to return, to explore once more,\n' +
+    'To learn about the creatures, from shore to ocean floor.\n' +
+    '\n' +
+    'Back on land, Jackie shared her tale with glee,\n' +
+    'About the wonders of the ocean, for all to see.\n' +
+    'She taught her friends and family, far and near,\n' +
+    'To cherish and protect the ocean, so dear.\n' +
+    '\n' +
+    "And so, Jackie's underwater adventure came to an end,\n" +
+    'But her love for the ocean, forever would transcend.\n' +
+    "For in her heart, she knew, that the ocean's deep blue,\n" +
+    'Held secrets and beauty, for me and for you.\n' +
+    '\n' +
+    '=====\n' +
+    '\n' +
+    'Character Appearance:\n' +
+    'Jackie is a little girl with curly brown hair,\n' +
+    "With bright blue eyes and a smile that's rare.\n" +
+    'She wears a pink swimsuit, with flippers on her feet,\n' +
+    'And a snorkel on her head, ready for an underwater feat.',
+  totalCompletionTokens: 483,
+  totalPromptTokens: 147,
+  executionTokens: 630,
+  id: ''
+}
+
+{
+  text: "Title: Jackie's Underwater Adventure\n" +
+    '\n' +
+    'Once upon a time, in a land not too far,\n' +
+    'Lived a little girl named Jackie, a shining star.\n' +
+    'With curiosity in her eyes, she loved to explore,\n' +
+    'And today, she set off for the ocean floor.\n' +
+    '\n' +
+    'With her snorkel and fins, she dove into the sea,\n' +
+    'Excitement bubbling inside, as happy as can be.\n' +
+    'Down she went, deeper and deeper she swam,\n' +
+    'Discovering wonders, like a true little clam.\n' +
+    '\n' +
+    '=====\n' +
+    '\n' +
+    'Page 1:\n' +
+    'As Jackie descended, the water turned blue,\n' +
+    'She marveled at the fish, in every shape and hue.\n' +
+    'She saw a school of clownfish, swimming in a line,\n' +
+    'And a graceful sea turtle, so majestic and fine.\n' +
+    '\n' +
+    'Page 2:\n' +
+    'She spotted a coral reef, vibrant and bright,\n' +
+    'With colorful creatures, a true underwater sight.\n' +
+    'She learned that corals are animals, not plants,\n' +
+    'And they build homes for many sea creatures, like ants.\n' +
+    '\n' +
+    'Page 3:\n' +
+    'Deeper still, Jackie ventured, with a sense of awe,\n' +
+    'She encountered a giant squid, with tentacles so raw.\n' +
+    'She learned that squids are clever, with brains so smart,\n' +
+    'And they can change colors, like a work of art.\n' +
+    '\n' +
+    'Page 4:\n' +
+    'In the distance, she saw a mysterious shadow,\n' +
+    'It was a humpback whale, putting on a show.\n' +
+    'She learned that whales are gentle giants of the sea,\n' +
+    'And they sing beautiful songs, so happy and free.\n' +
+    '\n' +
+    'Page 5:\n' +
+    'As Jackie began her ascent, back to the surface above,\n' +
+    'She felt grateful for the ocean, a world she came to love.\n' +
+    'She realized the importance of protecting this place,\n' +
+    'So future generations can explore with a smile on their face.\n' +
+    '\n' +
+    '=====\n' +
+    '\n' +
+    'And so, Jackie emerged from the ocean blue,\n' +
+    'With stories to share, and lessons anew.\n' +
+    'She knew that the ocean was a treasure to keep,\n' +
+    'And she promised to protect it, even in her sleep.\n' +
+    '\n' +
+    'Character Appearance:\n' +
+    'Jackie had curly brown hair and bright blue eyes,\n' +
+    'With a smile that could light up the skies.\n' +
+    'She wore a pink swimsuit, ready for adventure,\n' +
+    'And her face was always filled with pure joy and pleasure.',
+  totalCompletionTokens: 444,
+  totalPromptTokens: 147,
+  executionTokens: 591,
+  id: ''
+}

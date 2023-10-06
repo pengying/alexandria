@@ -1,28 +1,34 @@
 import 'package:graphql/client.dart';
 
-String query = r'''
-query Books {
-  books {
-    title
-    bookRaw {
-      content
-    }
-  }
-}
-''';
-
-final QueryOptions options = QueryOptions(document: gql(query));
-
 final Link _httpLink = HttpLink(
   'http://localhost:4000/',
 );
 
-/// subscriptions must be split otherwise `HttpLink` will. swallow them
-GraphQLClient getClient() {
-  return GraphQLClient(
-    /// **NOTE** The default store is the InMemoryStore, which does NOT persist to disk
-    cache: GraphQLCache(),
-    link: _httpLink,
-  );
-}
+final GraphQLClient client = GraphQLClient(
+  /// **NOTE** The default store is the InMemoryStore, which does NOT persist to disk
+  cache: GraphQLCache(),
+  link: _httpLink,
+);
 
+/// subscriptions must be split otherwise `HttpLink` will. swallow them
+Future<QueryResult> generateBookFromPrompt(
+    {required String name, required int age, required String prompt}) async {
+  const String promptInput = r'''
+  mutation Mutation($prompt: PromptInput!) {
+    generateBookFromPrompt(prompt: $prompt)
+  }
+  ''';
+
+  final MutationOptions options =
+      MutationOptions(document: gql(promptInput), variables: <String, dynamic>{
+    'prompt': <String, dynamic>{
+      'age': age,
+      'name': name,
+      'prompt': prompt,
+    },
+  });
+
+  final QueryResult result = await client.mutate(options);
+
+  return result;
+}

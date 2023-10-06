@@ -20,13 +20,16 @@ import { PromptInput } from "./prompt.input";
 export class PromptResolver {
   private openAI = new OpenAIConnector();
 
-  @Mutation()
-  generateBookFromPrompt(
-    @Arg("data") prompt: PromptInput,
+  @Mutation(_returns => String)
+  async generateBookFromPrompt(
+    @Arg("prompt") prompt: PromptInput,
     @Ctx() ctx: Context
-  ): Book {
-    console.log(this.openAI.getBook(prompt));
+  ): Promise<String> {
+    let book = await this.openAI.getBook(prompt);
 
-    return new Book();
+    console.log(book);
+
+
+    return JSON.stringify(book);
   }
 }
