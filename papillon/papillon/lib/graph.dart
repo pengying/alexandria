@@ -1,7 +1,7 @@
 import 'package:graphql/client.dart';
 
 final Link _httpLink = HttpLink(
-  'http://localhost:4000/',
+  const String.fromEnvironment('GRAPH_URL'),
 );
 
 final GraphQLClient client = GraphQLClient(
@@ -14,9 +14,14 @@ final GraphQLClient client = GraphQLClient(
 Future<QueryResult> generateBookFromPrompt(
     {required String name, required int age, required String prompt}) async {
   const String promptInput = r'''
-  mutation Mutation($prompt: PromptInput!) {
-    generateBookFromPrompt(prompt: $prompt)
+mutation Mutation($prompt: PromptInput!) {
+  generateBookFromPrompt(prompt: $prompt){
+    title
+    bookRaw {
+      content
+    }
   }
+}
   ''';
 
   final MutationOptions options =

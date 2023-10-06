@@ -49,7 +49,8 @@ class _PromptState extends State<Prompt> {
   final nameController = TextEditingController();
   final ageController = TextEditingController();
   final promptController = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -60,9 +61,51 @@ class _PromptState extends State<Prompt> {
     super.dispose();
   }
 
+  void generateBook() {
+    // Validate will return true if the form is valid, or false if
+    // the form is invalid.
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Generating Book')),
+      );
+    }
+
+    log('name: ${nameController.text}');
+
+    var gPromise = generateBookFromPrompt(
+        name: nameController.text,
+        age: int.parse(ageController.text),
+        prompt: promptController.text);
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Dialog(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              Text("Generating"),
+            ],
+          ),
+        );
+      },
+    );
+
+    gPromise.then(
+      (value) {
+        Navigator.pop(context);
+        log(json.encode(value.data));
+      },
+    ).catchError((error) {
+      log(error);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    
 
     return Form(
       key: _formKey,
@@ -186,42 +229,7 @@ class _PromptState extends State<Prompt> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
-              onPressed: () {
-                // Validate will return true if the form is valid, or false if
-                // the form is invalid.
-                if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Generating Book')),
-                  );
-                }
-
-                log('name: ${nameController.text}');
-
-                var gPromise = generateBookFromPrompt(name: nameController.text, age: int.parse(ageController.text), prompt: promptController.text);
-
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (BuildContext context) {
-                    return const Dialog(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CircularProgressIndicator(),
-                          Text("Generating"),
-                        ],
-                      ),
-                    );
-                  },
-                );
-
-                gPromise.then((value) {
-                    Navigator.pop(context);
-                    log(json.encode(value.data));
-                },).catchError((error) {
-                  log(error);
-                });
-              },
+              onPressed: generateBook,
               child: const Text('Generate'),
             ),
           ),

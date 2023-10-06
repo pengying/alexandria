@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { PromptInput } from "./prompt.input";
 import { ChatCompletion } from "openai/resources/chat";
-import { lowerCaseKeys, populatePromptTemplate } from "./utils";
+import { areAllFieldsDefined, lowerCaseKeys, populatePromptTemplate } from "./utils";
 import { Logger } from "tslog";
 import { Prisma } from "@prisma/client";
 
@@ -101,7 +101,7 @@ export function parseGPT4Completion(
     book = lowerCaseKeys(JSON.parse(content));
   }
 
-  return {
+  let bookCreateInput = {
     title: book?.title,
     bookRaw: {
       create: {
@@ -118,4 +118,10 @@ export function parseGPT4Completion(
       },
     },
   };
+
+  if (!areAllFieldsDefined(bookCreateInput)) {
+    throw new Error("Error parsing fields from OpenAI book generation response");
+  }
+  
+  return bookCreateInput; 
 }

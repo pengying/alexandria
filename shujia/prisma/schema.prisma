@@ -39,3 +39,9 @@ model BookRevision {
   completionTokens Int?
   totalTokens Int?
 }
+
+model Character {
+  uuid String @id @db.Uuid @default(uuid())
+  name String
+  description String
+}

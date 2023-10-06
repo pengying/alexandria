@@ -18,3 +18,12 @@ export function lowerCaseKeys(obj: JSONObject): JSONObject {
 
   return result;
 }
+
+export function areAllFieldsDefined(obj: { [key: string]: any }): boolean {
+    for (const key in obj) {
+        if (obj[key] === undefined) {
+            return false;
+        }
+    }
+    return true;
+}

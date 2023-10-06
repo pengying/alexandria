@@ -30,16 +30,22 @@ export class PromptResolver {
   async generateBookFromPrompt(
     @Arg("prompt") prompt: PromptInput,
     @Ctx() ctx: Context
-  ): Promise<Book> {
+  ): Promise<Book | undefined> {
 
     // TODO(Peng): Handle errors eg LLM says "I can't assist with that"
+    // TODO(Peng): Add better error handling
+    let book;
+    let persistedBook;
+    try{
+        book = parseGPT4Completion(await openAIGenerateBookFromPrompt(prompt));
 
-    let book = await openAIGenerateBookFromPrompt(prompt);
-//     let book = parseGPT4Completion(story);
+       persistedBook = await prisma.book.create({data: book});
+    } catch(error) {
+        console.log
+    }
+     
+    console.log(persistedBook);
 
-    const createdBook = await prisma.book.create({data: parseGPT4Completion(book)});
-    console.log(createdBook);
-
-    return createdBook;
+    return persistedBook;
   }
 }
