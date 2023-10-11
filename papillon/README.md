@@ -21,3 +21,5 @@ samples, guidance on mobile development, and a full API reference.
 dart run build_runner build
 ```
 
+## Run docker webserver
+docker run -p 80:80

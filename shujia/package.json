@@ -6,7 +6,8 @@
     "dev:debug": "npm run generate && ts-node-dev --transpile-only --respawn --inspect=4321 src/index.ts",
     "generate": "npx prisma generate",
     "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "npm run compile && node ./dist/index.js",
+    "start:migrate:prod": "npx prisma migrate deploy && node ./dist/index.js"
   },
   "dependencies": {
     "@apollo/server": "4.9.3",

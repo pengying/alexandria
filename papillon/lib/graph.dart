@@ -1,7 +1,7 @@
 import 'package:graphql/client.dart';
 
 final Link _httpLink = HttpLink(
-  const String.fromEnvironment('GRAPH_URL'),
+  const String.fromEnvironment('GRAPH_HOST'),
 );
 
 final GraphQLClient client = GraphQLClient(

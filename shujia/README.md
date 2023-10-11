@@ -1,3 +1,10 @@
+## How to run
+
+ docker run --env OPENAI_API_KEY=$OPENAI_API_KEY --net=host -p 4000:4000 pengying/shujia
+ 
+Update env
+DATABASE_URL="postgresql://postgres:postgres@$PG_HOST:5432/pg_development?schema=public"
+
 # GraphQL Server Example
 
 This example shows how to **implement a GraphQL server with TypeScript** based on [Prisma Client](https://www.prisma.io/docs/concepts/components/prisma-client), [apollo-server](https://www.apollographql.com/docs/apollo-server). It is based on a SQLite database - you can find the database file with some dummy data at [`./prisma/dev.db`](./prisma/dev.db).

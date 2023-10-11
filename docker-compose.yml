@@ -1,6 +1,6 @@
 # docker-compose.yml
 
-version: '1'
+version: '3'
 services:
   db:
     image: "postgres:16.0-alpine"
@@ -13,6 +13,25 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: pg_development
 
+  graph:
+    build: shujia
+    ports: 
+      - "4000:4000"
+    links:
+      - db
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      PG_HOST: db
+      # DATABASE_URL: "postgresql://postgres:postgres@${PG_HOST}:5432/pg_development?schema=public"
+
+  frontend:
+    build: papillon
+    ports:
+      - "8000:80"
+    links:
+      - graph
+    environment:
+      GRAPH_HOST: graph
   # app:
   #   image: node:10.12.0
   #   working_dir: /books

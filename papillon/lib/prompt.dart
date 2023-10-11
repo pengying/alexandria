@@ -72,11 +72,13 @@ class _PromptState extends State<Prompt> {
 
     log('name: ${nameController.text}');
 
+    // Pass prompt to BE
     var gPromise = generateBookFromPrompt(
         name: nameController.text,
         age: int.parse(ageController.text),
         prompt: promptController.text);
-
+    
+    // While waiting for the net work response show a dialog
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -93,6 +95,7 @@ class _PromptState extends State<Prompt> {
       },
     );
 
+    // Resolve the promise then hide the dialog.
     gPromise.then(
       (value) {
         Navigator.pop(context);
