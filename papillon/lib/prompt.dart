@@ -10,41 +10,6 @@ class Prompt extends StatefulWidget {
   State<Prompt> createState() => _PromptState();
 }
 
-class Album {
-  final int userId;
-  final int id;
-  final String title;
-
-  const Album({
-    required this.userId,
-    required this.id,
-    required this.title,
-  });
-
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-    );
-  }
-
-  static Future<Album> fetchAlbum() async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return Album.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
-    }
-  }
-}
-
 class _PromptState extends State<Prompt> {
   final nameController = TextEditingController();
   final ageController = TextEditingController();
@@ -108,8 +73,6 @@ class _PromptState extends State<Prompt> {
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Form(
       key: _formKey,
       child: FocusTraversalGroup(
@@ -124,7 +87,7 @@ class _PromptState extends State<Prompt> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: TextFormField(
-              autofocus: true,
+              // autofocus: true,
               controller: nameController,
               decoration: const InputDecoration(
                 label: Text.rich(

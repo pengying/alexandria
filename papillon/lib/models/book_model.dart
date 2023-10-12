@@ -1,7 +1,7 @@
 class BookModel {
   final String title;
   final DateTime createdAt;
-  final List<String> rawContent;
+  final List<dynamic> rawContent;
   // late final List<String> editedContent;
   final String systemPrompt;
   final String userPrompt;
@@ -19,7 +19,7 @@ class BookModel {
     var createdAt =
         DateTime.parse(queryResult['createdAt'] ?? "2023-01-01T00:00:00Z");
     final Map<String, dynamic>? bookRaw = queryResult['bookRaw'];
-    List<String> rawContent = ["default raw content"];
+    List<dynamic> rawContent = ["default raw content"];
     String systemPrompt = "default system prompt";
     String userPrompt = "default user prompt";
     if (bookRaw != null) {

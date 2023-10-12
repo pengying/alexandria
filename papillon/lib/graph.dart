@@ -1,8 +1,10 @@
 import 'package:graphql/client.dart';
-import 'package:papillon/book_model.dart';
+import 'package:papillon/models/book_model.dart';
+import 'dart:developer' as developer;
 
 final Link _httpLink = HttpLink(
-  const String.fromEnvironment('GRAPH_HOST'),
+  // const String.fromEnvironment('GRAPH_HOST'),
+  "http://localhost:4000/graphql",
 );
 
 final GraphQLClient client = GraphQLClient(
@@ -67,6 +69,7 @@ query Books {
 
   final QueryResult result = await client.query(options);
   // TODO(Peng): add error handling
+  developer.log(result.data.toString(), name: 'graph.listAllBooks');
 
   if (!result.hasException) {
     List<dynamic> queryBooks = result.data?['books'];
