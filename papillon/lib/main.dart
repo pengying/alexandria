@@ -39,15 +39,15 @@ class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
 
   late Future<List<BookModel>> allBooks;
-
 @override
 void initState() {
   super.initState();
-  allBooks = listAllBooks();
+  Provider.of<MyAppState>(context, listen: false).setBooks(listAllBooks());
 }
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
     Widget page;
     switch(selectedIndex) {
       case 0: 
