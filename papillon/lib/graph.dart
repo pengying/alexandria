@@ -1,4 +1,5 @@
 import 'package:graphql/client.dart';
+import 'package:papillon/book_model.dart';
 
 final Link _httpLink = HttpLink(
   const String.fromEnvironment('GRAPH_HOST'),
@@ -11,6 +12,7 @@ final GraphQLClient client = GraphQLClient(
 );
 
 /// subscriptions must be split otherwise `HttpLink` will. swallow them
+/// TODO(Peng): change this to a book model
 Future<QueryResult> generateBookFromPrompt(
     {required String name, required int age, required String prompt}) async {
   const String promptInput = r'''
@@ -36,4 +38,42 @@ mutation Mutation($prompt: PromptInput!) {
   final QueryResult result = await client.mutate(options);
 
   return result;
+}
+
+Future<List<BookModel>> listAllBooks() async {
+  const listAllBooksQuery = """
+query Books {
+  books {
+    bookRaw {
+      content
+      systemPrompt
+      userPrompt
+      completionTokens
+      raw
+      totalTokens
+      model
+    }
+    title
+    updatedAt
+    createdAt
+    uuid
+    bookEdited {
+      content
+    }
+  }
+}
+""";
+  final QueryOptions options = QueryOptions(document: gql(listAllBooksQuery));
+
+  final QueryResult result = await client.query(options);
+  // TODO(Peng): add error handling
+
+  if (!result.hasException) {
+    List<dynamic> queryBooks = result.data?['books'];
+    return queryBooks
+        .map((bookResult) => BookModel.fromQueryResult(queryResult: bookResult))
+        .toList();
+  } else {
+    throw Exception('Failed to load books');
+  }
 }

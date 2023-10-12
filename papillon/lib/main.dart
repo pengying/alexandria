@@ -1,5 +1,9 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql/client.dart';
+import 'package:papillon/book.dart';
+import 'package:papillon/book_model.dart';
+import 'package:papillon/graph.dart';
 import 'package:papillon/prompt.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'Alexandria App',
         theme: theme,
         home: MyHomePage(),
       ),
@@ -34,6 +38,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
 
+  late Future<List<BookModel>> allBooks;
+
+@override
+void initState() {
+  super.initState();
+  allBooks = listAllBooks();
+}
+
   @override
   Widget build(BuildContext context) {
     Widget page;
@@ -44,9 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = Favorites();
         break;
+      // case 2:
+      //   //page = Book();
+      //   break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
+    
     return LayoutBuilder(builder: (context, constraints) {
         return Scaffold(
           body: Row(

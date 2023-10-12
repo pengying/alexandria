@@ -21,6 +21,12 @@ type AggregateBookRevision {
   _sum: BookRevisionSumAggregate
 }
 
+type AggregateCharacter {
+  _count: CharacterCountAggregate
+  _max: CharacterMaxAggregate
+  _min: CharacterMinAggregate
+}
+
 type Book {
   bookEdited(where: BookRevisionWhereInput): BookRevision
   bookRaw(where: BookRevisionWhereInput): BookRevision
@@ -809,6 +815,130 @@ input BoolWithAggregatesFilter {
   not: NestedBoolWithAggregatesFilter
 }
 
+type Character {
+  description: String!
+  name: String!
+  uuid: String!
+}
+
+type CharacterCountAggregate {
+  _all: Int!
+  description: Int!
+  name: Int!
+  uuid: Int!
+}
+
+input CharacterCountOrderByAggregateInput {
+  description: SortOrder
+  name: SortOrder
+  uuid: SortOrder
+}
+
+input CharacterCreateInput {
+  description: String!
+  name: String!
+  uuid: String
+}
+
+input CharacterCreateManyInput {
+  description: String!
+  name: String!
+  uuid: String
+}
+
+type CharacterGroupBy {
+  _count: CharacterCountAggregate
+  _max: CharacterMaxAggregate
+  _min: CharacterMinAggregate
+  description: String!
+  name: String!
+  uuid: String!
+}
+
+type CharacterMaxAggregate {
+  description: String
+  name: String
+  uuid: String
+}
+
+input CharacterMaxOrderByAggregateInput {
+  description: SortOrder
+  name: SortOrder
+  uuid: SortOrder
+}
+
+type CharacterMinAggregate {
+  description: String
+  name: String
+  uuid: String
+}
+
+input CharacterMinOrderByAggregateInput {
+  description: SortOrder
+  name: SortOrder
+  uuid: SortOrder
+}
+
+input CharacterOrderByWithAggregationInput {
+  _count: CharacterCountOrderByAggregateInput
+  _max: CharacterMaxOrderByAggregateInput
+  _min: CharacterMinOrderByAggregateInput
+  description: SortOrder
+  name: SortOrder
+  uuid: SortOrder
+}
+
+input CharacterOrderByWithRelationInput {
+  description: SortOrder
+  name: SortOrder
+  uuid: SortOrder
+}
+
+enum CharacterScalarFieldEnum {
+  description
+  name
+  uuid
+}
+
+input CharacterScalarWhereWithAggregatesInput {
+  AND: [CharacterScalarWhereWithAggregatesInput!]
+  NOT: [CharacterScalarWhereWithAggregatesInput!]
+  OR: [CharacterScalarWhereWithAggregatesInput!]
+  description: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  uuid: UuidWithAggregatesFilter
+}
+
+input CharacterUpdateInput {
+  description: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  uuid: StringFieldUpdateOperationsInput
+}
+
+input CharacterUpdateManyMutationInput {
+  description: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  uuid: StringFieldUpdateOperationsInput
+}
+
+input CharacterWhereInput {
+  AND: [CharacterWhereInput!]
+  NOT: [CharacterWhereInput!]
+  OR: [CharacterWhereInput!]
+  description: StringFilter
+  name: StringFilter
+  uuid: UuidFilter
+}
+
+input CharacterWhereUniqueInput {
+  AND: [CharacterWhereInput!]
+  NOT: [CharacterWhereInput!]
+  OR: [CharacterWhereInput!]
+  description: StringFilter
+  name: StringFilter
+  uuid: String
+}
+
 input DateTimeFieldUpdateOperationsInput {
   set: DateTimeISO
 }
@@ -873,19 +1003,26 @@ input IntNullableWithAggregatesFilter {
 type Mutation {
   createManyBook(data: [BookCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyBookRevision(data: [BookRevisionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyCharacter(data: [CharacterCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createOneBook(data: BookCreateInput!): Book!
   createOneBookRevision(data: BookRevisionCreateInput!): BookRevision!
+  createOneCharacter(data: CharacterCreateInput!): Character!
   deleteManyBook(where: BookWhereInput): AffectedRowsOutput!
   deleteManyBookRevision(where: BookRevisionWhereInput): AffectedRowsOutput!
+  deleteManyCharacter(where: CharacterWhereInput): AffectedRowsOutput!
   deleteOneBook(where: BookWhereUniqueInput!): Book
   deleteOneBookRevision(where: BookRevisionWhereUniqueInput!): BookRevision
+  deleteOneCharacter(where: CharacterWhereUniqueInput!): Character
   generateBookFromPrompt(prompt: PromptInput!): Book!
   updateManyBook(data: BookUpdateManyMutationInput!, where: BookWhereInput): AffectedRowsOutput!
   updateManyBookRevision(data: BookRevisionUpdateManyMutationInput!, where: BookRevisionWhereInput): AffectedRowsOutput!
+  updateManyCharacter(data: CharacterUpdateManyMutationInput!, where: CharacterWhereInput): AffectedRowsOutput!
   updateOneBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book
   updateOneBookRevision(data: BookRevisionUpdateInput!, where: BookRevisionWhereUniqueInput!): BookRevision
+  updateOneCharacter(data: CharacterUpdateInput!, where: CharacterWhereUniqueInput!): Character
   upsertOneBook(create: BookCreateInput!, update: BookUpdateInput!, where: BookWhereUniqueInput!): Book!
   upsertOneBookRevision(create: BookRevisionCreateInput!, update: BookRevisionUpdateInput!, where: BookRevisionWhereUniqueInput!): BookRevision!
+  upsertOneCharacter(create: CharacterCreateInput!, update: CharacterUpdateInput!, where: CharacterWhereUniqueInput!): Character!
 }
 
 input NestedBoolFilter {
@@ -1113,18 +1250,25 @@ input PromptInput {
 type Query {
   aggregateBook(cursor: BookWhereUniqueInput, orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): AggregateBook!
   aggregateBookRevision(cursor: BookRevisionWhereUniqueInput, orderBy: [BookRevisionOrderByWithRelationInput!], skip: Int, take: Int, where: BookRevisionWhereInput): AggregateBookRevision!
+  aggregateCharacter(cursor: CharacterWhereUniqueInput, orderBy: [CharacterOrderByWithRelationInput!], skip: Int, take: Int, where: CharacterWhereInput): AggregateCharacter!
   book(where: BookWhereUniqueInput!): Book
   bookRevision(where: BookRevisionWhereUniqueInput!): BookRevision
   bookRevisions(cursor: BookRevisionWhereUniqueInput, distinct: [BookRevisionScalarFieldEnum!], orderBy: [BookRevisionOrderByWithRelationInput!], skip: Int, take: Int, where: BookRevisionWhereInput): [BookRevision!]!
   books(cursor: BookWhereUniqueInput, distinct: [BookScalarFieldEnum!], orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): [Book!]!
+  character(where: CharacterWhereUniqueInput!): Character
+  characters(cursor: CharacterWhereUniqueInput, distinct: [CharacterScalarFieldEnum!], orderBy: [CharacterOrderByWithRelationInput!], skip: Int, take: Int, where: CharacterWhereInput): [Character!]!
   findFirstBook(cursor: BookWhereUniqueInput, distinct: [BookScalarFieldEnum!], orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): Book
   findFirstBookOrThrow(cursor: BookWhereUniqueInput, distinct: [BookScalarFieldEnum!], orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): Book
   findFirstBookRevision(cursor: BookRevisionWhereUniqueInput, distinct: [BookRevisionScalarFieldEnum!], orderBy: [BookRevisionOrderByWithRelationInput!], skip: Int, take: Int, where: BookRevisionWhereInput): BookRevision
   findFirstBookRevisionOrThrow(cursor: BookRevisionWhereUniqueInput, distinct: [BookRevisionScalarFieldEnum!], orderBy: [BookRevisionOrderByWithRelationInput!], skip: Int, take: Int, where: BookRevisionWhereInput): BookRevision
+  findFirstCharacter(cursor: CharacterWhereUniqueInput, distinct: [CharacterScalarFieldEnum!], orderBy: [CharacterOrderByWithRelationInput!], skip: Int, take: Int, where: CharacterWhereInput): Character
+  findFirstCharacterOrThrow(cursor: CharacterWhereUniqueInput, distinct: [CharacterScalarFieldEnum!], orderBy: [CharacterOrderByWithRelationInput!], skip: Int, take: Int, where: CharacterWhereInput): Character
   getBook(where: BookWhereUniqueInput!): Book
   getBookRevision(where: BookRevisionWhereUniqueInput!): BookRevision
+  getCharacter(where: CharacterWhereUniqueInput!): Character
   groupByBook(by: [BookScalarFieldEnum!]!, having: BookScalarWhereWithAggregatesInput, orderBy: [BookOrderByWithAggregationInput!], skip: Int, take: Int, where: BookWhereInput): [BookGroupBy!]!
   groupByBookRevision(by: [BookRevisionScalarFieldEnum!]!, having: BookRevisionScalarWhereWithAggregatesInput, orderBy: [BookRevisionOrderByWithAggregationInput!], skip: Int, take: Int, where: BookRevisionWhereInput): [BookRevisionGroupBy!]!
+  groupByCharacter(by: [CharacterScalarFieldEnum!]!, having: CharacterScalarWhereWithAggregatesInput, orderBy: [CharacterOrderByWithAggregationInput!], skip: Int, take: Int, where: CharacterWhereInput): [CharacterGroupBy!]!
 }
 
 enum QueryMode {
