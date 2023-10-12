@@ -43,6 +43,7 @@ dependencies:
   flutter_hooks: ^0.18.6
   firebase_analytics: ^10.5.1
   flutter_dotenv: ^5.1.0
+  pretty_diff_text: ^1.0.0
 
   
 dev_dependencies:
