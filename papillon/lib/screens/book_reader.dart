@@ -8,6 +8,7 @@ class BookReader extends StatelessWidget {
 
   Widget bookComparison(BookModel book) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           flex: 2,
@@ -32,10 +33,16 @@ class BookReader extends StatelessWidget {
             flex: 2,
             child: Column(children: [
               const Text('Edited Response'),
-              ListView(shrinkWrap:true,scrollDirection: Axis.vertical, children: <PrettyDiffText>[
-                for (var page in book.rawContent)
-                  PrettyDiffText(oldText: page, newText: page + "test")
-              ])
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: book.rawContent.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: PrettyDiffText(
+                            oldText: book.rawContent[index],
+                            newText: book.rawContent[index] + "test"));
+                  }),
             ]))
       ],
     );
@@ -46,6 +53,7 @@ class BookReader extends StatelessWidget {
   /// - Tokens used
   Widget bookHeader(BookModel book) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           flex: 2,
@@ -61,9 +69,11 @@ class BookReader extends StatelessWidget {
         ),
         Expanded(
             flex: 2,
-            child: Column(children: [
-              Text('Created At: ${book.createdAt.toLocal()}'),
-            ]))
+            child: Column(
+              children: [
+                Text('Created At: ${book.createdAt.toLocal()}'),
+              ],
+            ))
       ],
     );
   }
@@ -74,13 +84,14 @@ class BookReader extends StatelessWidget {
         appBar: AppBar(
           title: Text(book.title),
         ),
-        body: Container(
-            padding: const EdgeInsets.all(14.0),
-            child: Column(
-              children: [
-                bookHeader(book),
-                bookComparison(book),
-              ],
-            )));
+        body: SingleChildScrollView(
+            child: Container(
+                padding: const EdgeInsets.all(14.0),
+                child: Column(
+                  children: [
+                    bookHeader(book),
+                    bookComparison(book),
+                  ],
+                ))));
   }
 }

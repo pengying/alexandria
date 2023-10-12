@@ -24,7 +24,7 @@ class BookModel {
     String userPrompt = "default user prompt";
     if (bookRaw != null) {
       rawContent = bookRaw['content'] ?? ["default raw content"];
-      systemPrompt = bookRaw['system prompt'] ?? "default system prompt";
+      systemPrompt = bookRaw['systemPrompt'] ?? "default system prompt";
       userPrompt = bookRaw['userPrompt'] ?? "default user prompt";
     }
     return BookModel(
