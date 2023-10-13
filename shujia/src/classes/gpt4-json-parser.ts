@@ -24,6 +24,5 @@ let book: Prisma.BookCreateInput;
 
 book =  {
     title: 'test'
-    
 };
 

@@ -28,12 +28,18 @@ type AggregateCharacter {
 }
 
 type Book {
+  _count: BookCount
   bookEdited(where: BookRevisionWhereInput): BookRevision
   bookRaw(where: BookRevisionWhereInput): BookRevision
+  characters(cursor: CharacterWhereUniqueInput, distinct: [CharacterScalarFieldEnum!], orderBy: [CharacterOrderByWithRelationInput!], skip: Int, take: Int, where: CharacterWhereInput): [Character!]!
   createdAt: DateTimeISO!
   title: String!
   updatedAt: DateTimeISO!
   uuid: String!
+}
+
+type BookCount {
+  characters(where: CharacterWhereInput): Int!
 }
 
 type BookCountAggregate {
@@ -54,6 +60,7 @@ input BookCountOrderByAggregateInput {
 input BookCreateInput {
   bookEdited: BookRevisionCreateNestedOneWithoutBookEditedInput
   bookRaw: BookRevisionCreateNestedOneWithoutBookRawInput
+  characters: CharacterCreateNestedManyWithoutBooksInput
   createdAt: DateTimeISO
   title: String!
   updatedAt: DateTimeISO
@@ -65,6 +72,12 @@ input BookCreateManyInput {
   title: String!
   updatedAt: DateTimeISO
   uuid: String
+}
+
+input BookCreateNestedManyWithoutCharactersInput {
+  connect: [BookWhereUniqueInput!]
+  connectOrCreate: [BookCreateOrConnectWithoutCharactersInput!]
+  create: [BookCreateWithoutCharactersInput!]
 }
 
 input BookCreateNestedOneWithoutBookEditedInput {
@@ -89,8 +102,14 @@ input BookCreateOrConnectWithoutBookRawInput {
   where: BookWhereUniqueInput!
 }
 
+input BookCreateOrConnectWithoutCharactersInput {
+  create: BookCreateWithoutCharactersInput!
+  where: BookWhereUniqueInput!
+}
+
 input BookCreateWithoutBookEditedInput {
   bookRaw: BookRevisionCreateNestedOneWithoutBookRawInput
+  characters: CharacterCreateNestedManyWithoutBooksInput
   createdAt: DateTimeISO
   title: String!
   updatedAt: DateTimeISO
@@ -99,6 +118,16 @@ input BookCreateWithoutBookEditedInput {
 
 input BookCreateWithoutBookRawInput {
   bookEdited: BookRevisionCreateNestedOneWithoutBookEditedInput
+  characters: CharacterCreateNestedManyWithoutBooksInput
+  createdAt: DateTimeISO
+  title: String!
+  updatedAt: DateTimeISO
+  uuid: String
+}
+
+input BookCreateWithoutCharactersInput {
+  bookEdited: BookRevisionCreateNestedOneWithoutBookEditedInput
+  bookRaw: BookRevisionCreateNestedOneWithoutBookRawInput
   createdAt: DateTimeISO
   title: String!
   updatedAt: DateTimeISO
@@ -113,6 +142,12 @@ type BookGroupBy {
   title: String!
   updatedAt: DateTimeISO!
   uuid: String!
+}
+
+input BookListRelationFilter {
+  every: BookWhereInput
+  none: BookWhereInput
+  some: BookWhereInput
 }
 
 type BookMaxAggregate {
@@ -148,6 +183,10 @@ input BookNullableRelationFilter {
   isNot: BookWhereInput
 }
 
+input BookOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
 input BookOrderByWithAggregationInput {
   _count: BookCountOrderByAggregateInput
   _max: BookMaxOrderByAggregateInput
@@ -161,6 +200,7 @@ input BookOrderByWithAggregationInput {
 input BookOrderByWithRelationInput {
   bookEdited: BookRevisionOrderByWithRelationInput
   bookRaw: BookRevisionOrderByWithRelationInput
+  characters: CharacterOrderByRelationAggregateInput
   createdAt: SortOrder
   title: SortOrder
   updatedAt: SortOrder
@@ -690,6 +730,16 @@ enum BookScalarFieldEnum {
   uuid
 }
 
+input BookScalarWhereInput {
+  AND: [BookScalarWhereInput!]
+  NOT: [BookScalarWhereInput!]
+  OR: [BookScalarWhereInput!]
+  createdAt: DateTimeFilter
+  title: StringFilter
+  updatedAt: DateTimeFilter
+  uuid: UuidFilter
+}
+
 input BookScalarWhereWithAggregatesInput {
   AND: [BookScalarWhereWithAggregatesInput!]
   NOT: [BookScalarWhereWithAggregatesInput!]
@@ -703,6 +753,7 @@ input BookScalarWhereWithAggregatesInput {
 input BookUpdateInput {
   bookEdited: BookRevisionUpdateOneWithoutBookEditedNestedInput
   bookRaw: BookRevisionUpdateOneWithoutBookRawNestedInput
+  characters: CharacterUpdateManyWithoutBooksNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -714,6 +765,24 @@ input BookUpdateManyMutationInput {
   title: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
+}
+
+input BookUpdateManyWithWhereWithoutCharactersInput {
+  data: BookUpdateManyMutationInput!
+  where: BookScalarWhereInput!
+}
+
+input BookUpdateManyWithoutCharactersNestedInput {
+  connect: [BookWhereUniqueInput!]
+  connectOrCreate: [BookCreateOrConnectWithoutCharactersInput!]
+  create: [BookCreateWithoutCharactersInput!]
+  delete: [BookWhereUniqueInput!]
+  deleteMany: [BookScalarWhereInput!]
+  disconnect: [BookWhereUniqueInput!]
+  set: [BookWhereUniqueInput!]
+  update: [BookUpdateWithWhereUniqueWithoutCharactersInput!]
+  updateMany: [BookUpdateManyWithWhereWithoutCharactersInput!]
+  upsert: [BookUpsertWithWhereUniqueWithoutCharactersInput!]
 }
 
 input BookUpdateOneWithoutBookEditedNestedInput {
@@ -746,8 +815,14 @@ input BookUpdateToOneWithWhereWithoutBookRawInput {
   where: BookWhereInput
 }
 
+input BookUpdateWithWhereUniqueWithoutCharactersInput {
+  data: BookUpdateWithoutCharactersInput!
+  where: BookWhereUniqueInput!
+}
+
 input BookUpdateWithoutBookEditedInput {
   bookRaw: BookRevisionUpdateOneWithoutBookRawNestedInput
+  characters: CharacterUpdateManyWithoutBooksNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
@@ -756,10 +831,26 @@ input BookUpdateWithoutBookEditedInput {
 
 input BookUpdateWithoutBookRawInput {
   bookEdited: BookRevisionUpdateOneWithoutBookEditedNestedInput
+  characters: CharacterUpdateManyWithoutBooksNestedInput
   createdAt: DateTimeFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
+}
+
+input BookUpdateWithoutCharactersInput {
+  bookEdited: BookRevisionUpdateOneWithoutBookEditedNestedInput
+  bookRaw: BookRevisionUpdateOneWithoutBookRawNestedInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  uuid: StringFieldUpdateOperationsInput
+}
+
+input BookUpsertWithWhereUniqueWithoutCharactersInput {
+  create: BookCreateWithoutCharactersInput!
+  update: BookUpdateWithoutCharactersInput!
+  where: BookWhereUniqueInput!
 }
 
 input BookUpsertWithoutBookEditedInput {
@@ -780,6 +871,7 @@ input BookWhereInput {
   OR: [BookWhereInput!]
   bookEdited: BookRevisionNullableRelationFilter
   bookRaw: BookRevisionNullableRelationFilter
+  characters: CharacterListRelationFilter
   createdAt: DateTimeFilter
   title: StringFilter
   updatedAt: DateTimeFilter
@@ -792,6 +884,7 @@ input BookWhereUniqueInput {
   OR: [BookWhereInput!]
   bookEdited: BookRevisionNullableRelationFilter
   bookRaw: BookRevisionNullableRelationFilter
+  characters: CharacterListRelationFilter
   createdAt: DateTimeFilter
   title: StringFilter
   updatedAt: DateTimeFilter
@@ -816,9 +909,15 @@ input BoolWithAggregatesFilter {
 }
 
 type Character {
+  _count: CharacterCount
+  books(cursor: BookWhereUniqueInput, distinct: [BookScalarFieldEnum!], orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): [Book!]!
   description: String!
   name: String!
   uuid: String!
+}
+
+type CharacterCount {
+  books(where: BookWhereInput): Int!
 }
 
 type CharacterCountAggregate {
@@ -835,12 +934,30 @@ input CharacterCountOrderByAggregateInput {
 }
 
 input CharacterCreateInput {
+  books: BookCreateNestedManyWithoutCharactersInput
   description: String!
   name: String!
   uuid: String
 }
 
 input CharacterCreateManyInput {
+  description: String!
+  name: String!
+  uuid: String
+}
+
+input CharacterCreateNestedManyWithoutBooksInput {
+  connect: [CharacterWhereUniqueInput!]
+  connectOrCreate: [CharacterCreateOrConnectWithoutBooksInput!]
+  create: [CharacterCreateWithoutBooksInput!]
+}
+
+input CharacterCreateOrConnectWithoutBooksInput {
+  create: CharacterCreateWithoutBooksInput!
+  where: CharacterWhereUniqueInput!
+}
+
+input CharacterCreateWithoutBooksInput {
   description: String!
   name: String!
   uuid: String
@@ -853,6 +970,12 @@ type CharacterGroupBy {
   description: String!
   name: String!
   uuid: String!
+}
+
+input CharacterListRelationFilter {
+  every: CharacterWhereInput
+  none: CharacterWhereInput
+  some: CharacterWhereInput
 }
 
 type CharacterMaxAggregate {
@@ -879,6 +1002,10 @@ input CharacterMinOrderByAggregateInput {
   uuid: SortOrder
 }
 
+input CharacterOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
 input CharacterOrderByWithAggregationInput {
   _count: CharacterCountOrderByAggregateInput
   _max: CharacterMaxOrderByAggregateInput
@@ -889,6 +1016,7 @@ input CharacterOrderByWithAggregationInput {
 }
 
 input CharacterOrderByWithRelationInput {
+  books: BookOrderByRelationAggregateInput
   description: SortOrder
   name: SortOrder
   uuid: SortOrder
@@ -898,6 +1026,15 @@ enum CharacterScalarFieldEnum {
   description
   name
   uuid
+}
+
+input CharacterScalarWhereInput {
+  AND: [CharacterScalarWhereInput!]
+  NOT: [CharacterScalarWhereInput!]
+  OR: [CharacterScalarWhereInput!]
+  description: StringFilter
+  name: StringFilter
+  uuid: UuidFilter
 }
 
 input CharacterScalarWhereWithAggregatesInput {
@@ -910,6 +1047,7 @@ input CharacterScalarWhereWithAggregatesInput {
 }
 
 input CharacterUpdateInput {
+  books: BookUpdateManyWithoutCharactersNestedInput
   description: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   uuid: StringFieldUpdateOperationsInput
@@ -921,10 +1059,46 @@ input CharacterUpdateManyMutationInput {
   uuid: StringFieldUpdateOperationsInput
 }
 
+input CharacterUpdateManyWithWhereWithoutBooksInput {
+  data: CharacterUpdateManyMutationInput!
+  where: CharacterScalarWhereInput!
+}
+
+input CharacterUpdateManyWithoutBooksNestedInput {
+  connect: [CharacterWhereUniqueInput!]
+  connectOrCreate: [CharacterCreateOrConnectWithoutBooksInput!]
+  create: [CharacterCreateWithoutBooksInput!]
+  delete: [CharacterWhereUniqueInput!]
+  deleteMany: [CharacterScalarWhereInput!]
+  disconnect: [CharacterWhereUniqueInput!]
+  set: [CharacterWhereUniqueInput!]
+  update: [CharacterUpdateWithWhereUniqueWithoutBooksInput!]
+  updateMany: [CharacterUpdateManyWithWhereWithoutBooksInput!]
+  upsert: [CharacterUpsertWithWhereUniqueWithoutBooksInput!]
+}
+
+input CharacterUpdateWithWhereUniqueWithoutBooksInput {
+  data: CharacterUpdateWithoutBooksInput!
+  where: CharacterWhereUniqueInput!
+}
+
+input CharacterUpdateWithoutBooksInput {
+  description: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  uuid: StringFieldUpdateOperationsInput
+}
+
+input CharacterUpsertWithWhereUniqueWithoutBooksInput {
+  create: CharacterCreateWithoutBooksInput!
+  update: CharacterUpdateWithoutBooksInput!
+  where: CharacterWhereUniqueInput!
+}
+
 input CharacterWhereInput {
   AND: [CharacterWhereInput!]
   NOT: [CharacterWhereInput!]
   OR: [CharacterWhereInput!]
+  books: BookListRelationFilter
   description: StringFilter
   name: StringFilter
   uuid: UuidFilter
@@ -934,6 +1108,7 @@ input CharacterWhereUniqueInput {
   AND: [CharacterWhereInput!]
   NOT: [CharacterWhereInput!]
   OR: [CharacterWhereInput!]
+  books: BookListRelationFilter
   description: StringFilter
   name: StringFilter
   uuid: String

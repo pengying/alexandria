@@ -18,6 +18,7 @@ model Book {
   title String @db.Text
   bookRaw BookRevision? @relation("BookRaw")
   bookEdited BookRevision? @relation("BookEdited")
+  characters Character[]
 }
 
 model BookRevision {
@@ -38,10 +39,12 @@ model BookRevision {
   promptTokens Int?
   completionTokens Int?
   totalTokens Int?
+
 }
 
 model Character {
   uuid String @id @db.Uuid @default(uuid())
   name String
   description String
+  books Book[]
 }

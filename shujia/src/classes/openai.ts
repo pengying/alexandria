@@ -39,6 +39,12 @@ const userTemplate = `
 Write \${prompt} for a \${age} year old named \${name}.
 `;
 
+const editorTemplate = `
+You are a kids book editor that checks if a story is coherent and appropriate.  If it isn't, you modify the story to improve it's coherency.
+
+The user will provide a story in json format and you will out put in json.
+`
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -100,14 +106,16 @@ export function parseGPT4Completion(
   if (content) {
     book = lowerCaseKeys(JSON.parse(content));
   }
-
   let bookCreateInput = {
     title: book?.title,
+    characters: {
+      create: book?.characters,
+    },
     bookRaw: {
       create: {
         isRaw: true,
         raw: content,
-        content: book?.pages.map((obj: { text: any }) => obj.text.trim() || ""),
+        content: book?.pages.map((obj: { text: any }) => obj.text.trim() || ""), // trims page content
         systemPrompt: response.systemPrompt,
         userPrompt: response.userPrompt,
         model: response.completion.model,
