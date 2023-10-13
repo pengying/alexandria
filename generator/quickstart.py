@@ -35,11 +35,29 @@ userPrompt = '''
 Write A story about a little girl creating an app that is an infinite library of books  for a 8 year old named Aly.
 '''
 
+editPrompt = '''
+You are a kids book editor that checks if a story is coherent and makes sense.  If it isn't, you modify the story to improve it's coherency.  Your user provides you the story in json format with each page being a separate object in an array.  You edit and return the story int he same format.
+'''
+
+editUserPrompt = '''
+{\n    \"title\": \"Aly's Infinite Library\",\n    \"pages\":[\n        {\n            \"text\": \"In a small quiet town, where not much ever shook, lived a young girl named Aly who cherished her book. The libraries she'd visit, to her were quite finite, So she thought to herself, 'there must be a better site'.\",\n            \"sceneDescription\": \"A charming small town with a landmark library building. Aly as seen huddled with a book inside her cozy home.\"\n        },\n        {\n            \"text\": \"Her computer she opened with a thoughtful expression. 'I'll create something marvelous, my own book collection! I'll make an App, filled with stories unending, For kids all around, no matter how book-bending.'\",\n            \"sceneDescription\": \"Aly is at a desk with her computer open. She contemplates deeply, her eyes twinkling with inspiration.\"\n        },\n        {\n            \"text\": \"Working many hours, with devotion quite ample, Aly's hands danced on the keyboard, setting an example. Lines of code were woven, like a magical spell, 'Till her App was now ready, her heart filled with a swell.\",\n            \"sceneDescription\": \"Aly working fervently on her computer, pages of code spiraling around her.\"\n        },\n        {\n            \"text\": \"On her screen now emerged, a library so grand! Filled with books of all sorts, some plain, some handstand. Thrillers, romances, adventures, and more! Languages aplenty, from seashore to seashore.\",\n            \"sceneDescription\": \"A glowing screen showing a mosaic of book icons. Fantasy images of books around Aly.\"\n        },\n        {\n            \"text\": \"Her App was now ready, to share with the world, So she uploaded it online, and watched as it unfurled. People downloaded 'Aly's Library' with delight, The joy of reading spread, taking flight.\",\n            \"sceneDescription\": \"A globe indicating downloads from different parts. Aly watching in awe, excited and satisfied.\"\n        },\n        {\n            \"text\": \"'I've done it', thought Aly with a satisfied smile, 'I've made reading limitless, mile after mile'. As night came, she started reading ever so gently, From her App, Aly's Library, the library that's plenty.\",\n            \"sceneDescription\": \"Aly, relaxed in her armchair, reading from a tablet with a contented smile. The glow of her App reflected on her face.\"\n        }\n    ],\n    \"characters\": [\n        {\n            \"name\":\"Aly\",\n            \"description\": \"Aly is an 8-year-old girl with bright, sparkling eyes and brunette hair tied in a ponytail. She wears glasses, and is usually seen with a book or at her computer. She is intelligent, determined, and has a love for books and technology.\"\n        }\n    ]\n}\n
+'''
+
 completion = openai.ChatCompletion.create(
   model="gpt-4",
   messages=[
     {"role": "system", "content": systemPrompt},
     {"role": "user", "content": userPrompt}
+  ]
+)
+
+print(completion)
+
+completion = openai.ChatCompletion.create(
+  model="gpt-4",
+  messages=[
+    {"role": "system", "content": editPrompt},
+    {"role": "user", "content": editUserPrompt}
   ]
 )
 

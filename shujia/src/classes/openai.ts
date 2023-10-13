@@ -1,11 +1,16 @@
 import OpenAI from "openai";
 import { PromptInput } from "./prompt.input";
 import { ChatCompletion } from "openai/resources/chat";
-import { areAllFieldsDefined, lowerCaseKeys, populatePromptTemplate } from "./utils";
+import {
+  areAllFieldsDefined,
+  lowerCaseKeys,
+  populatePromptTemplate,
+} from "./utils";
 import { Logger } from "tslog";
 import { Prisma } from "@prisma/client";
 
 const logger = new Logger({ name: "OpenAI Client" });
+const temperature = 0.5;
 
 // TODO(Peng): Tweak prompts over time
 const systemTemplate = `
@@ -44,7 +49,7 @@ const editorTemplate = `
 You are a kids book editor that checks if a story is coherent and appropriate.  If it isn't, you modify the story to improve it's coherency.
 
 The user will provide a story in json format and you will out put in json.
-`
+`;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -71,33 +76,13 @@ export async function openAIGenerateBookFromPrompt(
 ): Promise<GeneratedBookResponse> {
   const systemPrompt = populatePromptTemplate(systemTemplate, prompt).trim();
   const userPrompt = populatePromptTemplate(userTemplate, prompt).trim();
-  const completion = await openai.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content: systemPrompt,
-      },
-      {
-        role: "user",
-        content: userPrompt,
-      },
-    ],
-    model: model,
-    temperature: 0.5,
-  });
-  let response = {
-    systemPrompt: systemPrompt,
-    userPrompt: userPrompt,
-    completion: completion,
-  };
-  logger.debug(`Prompt and response: ${JSON.stringify(response)}`);
-  return response;
+  return _promptHelper(systemPrompt, userPrompt);
 }
 
 /**
- * Parses GPT4's response into an object that matches the prisma migration. 
+ * Parses GPT4's response into an object that matches the prisma migration.
  * The structure it expects is the following:
- * 
+ *
  *   {
  *   "title": "Title",
  *   "pages":[
@@ -126,15 +111,15 @@ export function parseGPT4Completion(
   }
   let bookCreateInput = {
     title: book?.title,
-    characters: {
-      create: book?.characters,
-    },
+
     bookRaw: {
       create: {
         isRaw: true,
         raw: content,
-        content: book?.pages.map((obj: { text: any }) => obj.text.trim() || ""), 
-        sceneDescription: book?.pages.map((obj: { sceneDescription: any }) => obj.sceneDescription.trim() || ""),
+        content: book?.pages.map((obj: { text: any }) => obj.text.trim() || ""),
+        sceneDescription: book?.pages.map(
+          (obj: { sceneDescription: any }) => obj.sceneDescription.trim() || ""
+        ),
         systemPrompt: response.systemPrompt,
         userPrompt: response.userPrompt,
         model: response.completion.model,
@@ -142,13 +127,87 @@ export function parseGPT4Completion(
         promptTokens: response.completion.usage?.prompt_tokens,
         completionTokens: response.completion.usage?.completion_tokens,
         totalTokens: response.completion.usage?.total_tokens,
+        characters: {
+          create: book?.characters,
+        },
       },
     },
   };
 
   if (!areAllFieldsDefined(bookCreateInput)) {
-    throw new Error("Error parsing fields from OpenAI book generation response");
+    throw new Error(
+      "Error parsing fields from OpenAI book generation response"
+    );
   }
-  
-  return bookCreateInput; 
+
+  return bookCreateInput;
+}
+
+export async function openAIEditBook(
+  book: string
+): Promise<GeneratedBookResponse> {
+  const userPrompt = book.trim();
+
+  return _promptHelper(editorTemplate.trim(), userPrompt);
+}
+
+async function _promptHelper(
+  systemPrompt: string,
+  userPrompt: string
+): Promise<GeneratedBookResponse> {
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content: systemPrompt,
+      },
+      {
+        role: "user",
+        content: userPrompt,
+      },
+    ],
+    model: model,
+    temperature: temperature,
+  });
+
+  let response = {
+    systemPrompt: systemPrompt,
+    userPrompt: userPrompt,
+    completion: completion,
+  };
+  logger.debug(`Prompt and response: ${JSON.stringify(response)}`);
+  return response;
+}
+
+export function parseGPT4EditResponse(
+  response: GeneratedBookResponse
+): Prisma.BookUpdateInput {
+  let content = response.completion.choices[0].message.content;
+  let book;
+  if (content) {
+    book = lowerCaseKeys(JSON.parse(content));
+  }
+  let bookUpdateInput = {
+    bookEdited: {
+      create: {
+        isRaw: false,
+        raw: content,
+        content: book?.pages.map((obj: { text: any }) => obj.text.trim() || ""),
+        sceneDescription: book?.pages.map(
+          (obj: { sceneDescription: any }) => obj.sceneDescription.trim() || ""
+        ),
+        systemPrompt: response.systemPrompt,
+        userPrompt: response.userPrompt,
+        model: response.completion.model,
+        requestId: response.completion.id,
+        promptTokens: response.completion.usage?.prompt_tokens,
+        completionTokens: response.completion.usage?.completion_tokens,
+        totalTokens: response.completion.usage?.total_tokens,
+        characters: {
+          create: book?.characters,
+        },
+      },
+    },
+  };
+  return bookUpdateInput;
 }
