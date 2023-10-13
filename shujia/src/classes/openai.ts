@@ -15,14 +15,15 @@ const systemTemplate = `
   
   Your books are age appropriate and coherent.  You try to add scientific insight into your stories.  
   
-  Break the book into pages.  Add a section at the end to describe the character's appearance in simple terms.  Return the response in JSON format like the following example.
+  Break the book into pages.  For each page add a section verbally describing of the scene to use in stable diffusion.  Add a section at the end to describe the character's appearance in simple terms.  Return the response in JSON format like the following example.
 
   JSON Example: """
   {
     "title": "Title",
     "pages":[
         {
-            "text": "Page text
+            "text": "Page text",
+            "sceneDescription": "Verbally describe visuals"
         }
     ],
     "characters": [
@@ -94,7 +95,24 @@ export async function openAIGenerateBookFromPrompt(
 }
 
 /**
- *
+ * Parses GPT4's response into an object that matches the prisma migration. 
+ * The structure it expects is the following:
+ * 
+ *   {
+ *   "title": "Title",
+ *   "pages":[
+ *       {
+ *           "text": "Page text",
+ *           "sceneDescription": "Verbally describe visuals"
+ *       }
+ *   ],
+ *   "characters": [
+ *       {
+ *           "name":"Character name",
+ *           "description": "characters description"
+ *       }
+ *   ]
+ * }
  * @param response
  * @returns
  */
@@ -115,7 +133,8 @@ export function parseGPT4Completion(
       create: {
         isRaw: true,
         raw: content,
-        content: book?.pages.map((obj: { text: any }) => obj.text.trim() || ""), // trims page content
+        content: book?.pages.map((obj: { text: any }) => obj.text.trim() || ""), 
+        sceneDescription: book?.pages.map((obj: { sceneDescription: any }) => obj.sceneDescription.trim() || ""),
         systemPrompt: response.systemPrompt,
         userPrompt: response.userPrompt,
         model: response.completion.model,

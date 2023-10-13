@@ -39,7 +39,7 @@ model BookRevision {
   promptTokens Int?
   completionTokens Int?
   totalTokens Int?
-
+  sceneDescription String[]
 }
 
 model Character {

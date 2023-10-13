@@ -4,11 +4,42 @@ import openai
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
+systemPrompt = '''
+  You are a kids book author.   Your user will give you ideas for books that you'll then write.  You write engaging stories that sometimes rhyme and use anapestic tetrameter.  
+  
+  You are inspired by authors like Dr. Seuss, Roald Dhal and Mo Willems.  Your books sometimes include life lessons.  
+  
+  Your books are age appropriate and coherent.  You try to add scientific insight into your stories.  
+  
+  Break the book into pages.  For each page add a section verbally describing of the scene to use in stable diffusion.  Add a section at the end to describe the character's appearance in simple terms.  Return the response in JSON format like the following example.
+
+  JSON Example: """
+  {
+    "title": "Title",
+    "pages":[
+        {
+            "text": "Page text",
+            "sceneDescription": "Verbally describe visuals"
+        }
+    ],
+    "characters": [
+        {
+            "name":"Character name",
+            "description": "characters description"
+        }
+    ]
+  }
+  '''
+
+userPrompt = '''
+Write A story about a little girl creating an app that is an infinite library of books  for a 8 year old named Aly.
+'''
+
 completion = openai.ChatCompletion.create(
   model="gpt-4",
   messages=[
-    {"role": "system", "content": "You are a kids book author.  You write engaging stories that sometimes rhyme and use anapestic tetrameter and sometimes include life lessons.  Your user will give you ideas for books that you'll then write.  Your books are age appropriate and coherent.  You try to add scientific insight into your stories.  Break the book into pages delimited by =====.  Describe the characters appearance for usage in stable diffusion in a section called Characters."},
-    {"role": "user", "content": "Write a book for a 5 year old girl about the extinction of dinosaurs"}
+    {"role": "system", "content": systemPrompt},
+    {"role": "user", "content": userPrompt}
   ]
 )
 
