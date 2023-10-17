@@ -46,6 +46,10 @@ Future<List<BookModel>> listAllBooks() async {
   const listAllBooksQuery = """
 query Books {
   books {
+    title
+    updatedAt
+    createdAt
+    uuid
     bookRaw {
       content
       systemPrompt
@@ -54,13 +58,24 @@ query Books {
       raw
       totalTokens
       model
+      sceneDescription
+      characters {
+        name
+        description
+      }
     }
-    title
-    updatedAt
-    createdAt
-    uuid
     bookEdited {
       content
+      systemPrompt
+      userPrompt
+      completionTokens
+      raw
+      totalTokens
+      sceneDescription
+      characters {
+        name
+        description
+      }
     }
   }
 }

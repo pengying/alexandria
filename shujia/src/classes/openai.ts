@@ -13,7 +13,7 @@ const logger = new Logger({ name: "OpenAI Client" });
 const temperature = 0.5;
 
 // TODO(Peng): Tweak prompts over time
-const systemTemplate = `
+const defaultSystemTemplate = `
   You are a kids book author.   Your user will give you ideas for books that you'll then write.  You write engaging stories that sometimes rhyme and use anapestic tetrameter.  
   
   You are inspired by authors like Dr. Seuss, Roald Dhal and Mo Willems.  Your books sometimes include life lessons.  
@@ -41,12 +41,12 @@ const systemTemplate = `
   """
   `;
 
-const userTemplate = `
+const defaultUserTemplate = `
 Write \${prompt} for a \${age} year old named \${name}.
 `;
 
-const editorTemplate = `
-You are a kids book editor that checks if a story is coherent and appropriate.  If it isn't, you modify the story to improve it's coherency.
+const defaultEditorTemplate = `
+You are a kids book editor that checks if a story is coherent and appropriate.  If it isn't, you modify the story to improve it's coherency.  You try to keep the same rhyming scheme if the story rhymes.  If you need to escape code use a backtick instead of escaped quotes.  Verify that the json is correct and trim it.
 
 The user will provide a story in json format and you will out put in json.
 `;
@@ -74,8 +74,8 @@ export type GeneratedBookResponse = {
 export async function openAIGenerateBookFromPrompt(
   prompt: PromptInput
 ): Promise<GeneratedBookResponse> {
-  const systemPrompt = populatePromptTemplate(systemTemplate, prompt).trim();
-  const userPrompt = populatePromptTemplate(userTemplate, prompt).trim();
+  const systemPrompt = populatePromptTemplate(defaultSystemTemplate, prompt).trim();
+  const userPrompt = populatePromptTemplate(defaultUserTemplate, prompt).trim();
   return _promptHelper(systemPrompt, userPrompt);
 }
 
@@ -148,7 +148,7 @@ export async function openAIEditBook(
 ): Promise<GeneratedBookResponse> {
   const userPrompt = book.trim();
 
-  return _promptHelper(editorTemplate.trim(), userPrompt);
+  return _promptHelper(defaultEditorTemplate.trim(), userPrompt);
 }
 
 async function _promptHelper(

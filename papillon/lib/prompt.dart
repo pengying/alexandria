@@ -31,7 +31,7 @@ class _PromptState extends State<Prompt> {
     // the form is invalid.
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Generating Book')),
+        const SnackBar(content: Text('Generating Book.  Hold on this may take a while')),
       );
     }
 
@@ -53,7 +53,7 @@ class _PromptState extends State<Prompt> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CircularProgressIndicator(),
-              Text("Generating"),
+              Text("Generating Book.  Hold on this may take a while"),
             ],
           ),
         );

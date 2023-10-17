@@ -6,7 +6,12 @@ class BookReader extends StatelessWidget {
   final BookModel book;
   const BookReader({super.key, required this.book});
 
-  Widget bookComparison(BookModel book) {
+  /// Helper to render different comparisons
+  Widget _comparisonHelper({
+    required List<dynamic> rawContent,
+    required List<dynamic> editedContent,
+    required String comparisonType,
+  }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -14,16 +19,16 @@ class BookReader extends StatelessWidget {
           flex: 2,
           child: Column(
             children: [
-              const Text('Raw Response'),
+              Text('$comparisonType Raw Response'),
               ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                itemCount: book.rawContent.length,
+                itemCount: rawContent.length,
                 prototypeItem: ListTile(
-                  title: Text(book.rawContent[0]),
+                  title: Text(rawContent[0]),
                 ),
                 itemBuilder: (context, index) {
-                  return ListTile(title: Text(book.rawContent[index]));
+                  return ListTile(title: Text(rawContent[index]));
                 },
               )
             ],
@@ -32,20 +37,46 @@ class BookReader extends StatelessWidget {
         Expanded(
             flex: 2,
             child: Column(children: [
-              const Text('Edited Response'),
+              Text('$comparisonType Edited Response'),
               ListView.builder(
                   shrinkWrap: true,
-                  itemCount: book.rawContent.length,
+                  scrollDirection: Axis.vertical,
+                  itemCount: editedContent.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                        padding: const EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 8, bottom: 8),
                         child: PrettyDiffText(
-                            oldText: book.rawContent[index],
-                            newText: book.rawContent[index] + "test"));
+                            defaultTextStyle:
+                                DefaultTextStyle.of(context).style,
+                            oldText: rawContent[index],
+                            newText: editedContent[index]));
                   }),
             ]))
       ],
     );
+  }
+
+  /// Renders the comparison between the original book and the edited book
+  Widget bookComparison(BookModel book) {
+    return _comparisonHelper(
+        rawContent: book.rawContent,
+        editedContent: book.editedContent,
+        comparisonType: 'Book');
+  }
+
+  /// Renders comparison between characters
+  Widget characterComparison(BookModel book) {
+    return _comparisonHelper(
+        rawContent: book.rawCharacters.map((e) => e.toString()).toList(),
+        editedContent: book.editedCharacters.map((e) => e.toString()).toList(),
+        comparisonType: 'Character');
+  }
+
+  Widget sceneComparison(BookModel book) {
+    return _comparisonHelper(
+        rawContent: book.rawScenes,
+        editedContent: book.editedScenes,
+        comparisonType: 'Scenes');
   }
 
   /// Displays meta information about the book
@@ -60,10 +91,15 @@ class BookReader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text('Created At: ${book.createdAt.toLocal()}'),
+              Text('Model: ${book.model}'),
               const Text('System Prompt:'),
-              Text(book.systemPrompt),
+              Text(book.rawSystemPrompt),
               const Text('User Prompt: '),
-              Text(book.userPrompt),
+              Text(book.rawUserPrompt),
+              Text('Raw Prompt Tokens: ${book.rawPromptTokens}'),
+              Text('Raw Completion Tokens: ${book.rawCompletionTokens}'),
+              Text('Raw Total Tokens: ${book.rawTotalTokens}'),
             ],
           ),
         ),
@@ -71,7 +107,14 @@ class BookReader extends StatelessWidget {
             flex: 2,
             child: Column(
               children: [
-                Text('Created At: ${book.createdAt.toLocal()}'),
+                const Text('System Prompt:'),
+                Text(book.editedSystemPrompt),
+                const Text('User Prompt: '),
+                Text(book.editedUserPrompt),
+                Text('Edited Prompt Tokens: ${book.editedPromptTokens}'),
+                Text(
+                    'Edited Completion Tokens: ${book.editedCompletionTokens}'),
+                Text('Edited Total Tokens: ${book.editedTotalTokens}'),
               ],
             ))
       ],
@@ -91,6 +134,8 @@ class BookReader extends StatelessWidget {
                   children: [
                     bookHeader(book),
                     bookComparison(book),
+                    characterComparison(book),
+                    sceneComparison(book),
                   ],
                 ))));
   }
