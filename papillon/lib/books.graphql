@@ -1,9 +1,0 @@
-query Books {
-  books {
-    title
-    bookRaw {
-      content
-      userPrompt
-    }
-  }
-}
