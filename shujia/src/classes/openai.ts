@@ -26,7 +26,7 @@ Act I: Exposition.
 Act II: Rising action.
 Act III: Climax.
 Act IV: Falling action. The elements of act four—also called the falling action—include the series of events that lead to the resolution.
-5. Act V: Resolution.
+Act V: Resolution.
 
 Break the book into pages.  For each page add a section verbally describing of the scene to use in stable diffusion.  Add a section at the end to describe the character's appearance in simple terms.  Return the response in JSON format like the following example.
 
