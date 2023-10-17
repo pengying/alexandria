@@ -1477,8 +1477,10 @@ enum NullsOrder {
 
 input PromptInput {
   age: Int!
+  editPrompt: String!
   name: String!
-  prompt: String!
+  systemPrompt: String!
+  userPrompt: String!
 }
 
 type Query {

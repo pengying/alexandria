@@ -16,7 +16,7 @@ final GraphQLClient client = GraphQLClient(
 /// subscriptions must be split otherwise `HttpLink` will. swallow them
 /// TODO(Peng): change this to a book model
 Future<QueryResult> generateBookFromPrompt(
-    {required String name, required int age, required String prompt}) async {
+    {required String name, required int age, required String userPrompt, String? systemPrompt, String? editPrompt}) async {
   const String promptInput = r'''
 mutation Mutation($prompt: PromptInput!) {
   generateBookFromPrompt(prompt: $prompt){
@@ -60,7 +60,9 @@ mutation Mutation($prompt: PromptInput!) {
     'prompt': <String, dynamic>{
       'age': age,
       'name': name,
-      'prompt': prompt,
+      'userPrompt': userPrompt,
+      'systemPrompt': systemPrompt,
+      'editPrompt': editPrompt,
     },
   });
 

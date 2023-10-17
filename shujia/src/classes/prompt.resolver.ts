@@ -102,7 +102,7 @@ export class PromptResolver {
 
       if (book.bookRaw?.create?.raw) {
         editedBook = parseGPT4EditResponse(
-          await openAIEditBook(book.bookRaw.create.raw)
+          await openAIEditBook(book.bookRaw.create.raw, prompt)
         );
         // editedBook = parseGPT4EditResponse(editedStory);
         persistedEditedBook = await prisma.book.update({

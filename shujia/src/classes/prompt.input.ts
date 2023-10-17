@@ -9,5 +9,11 @@ export class PromptInput {
   age: number;
 
   @Field()
-  prompt: string;
+  userPrompt: string;
+
+  @Field()
+  systemPrompt: string
+
+  @Field()
+  editPrompt: string
 }

@@ -1,7 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:papillon/graph.dart';
-import 'package:papillon/prompt.dart';
+import 'package:papillon/screens/prompt.dart';
 import 'package:papillon/screens/book_list.dart';
 import 'package:papillon/screens/book_reader.dart';
 import 'package:provider/provider.dart';

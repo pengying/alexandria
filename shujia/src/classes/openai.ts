@@ -50,7 +50,9 @@ JSON Example: """
   `;
 
 const defaultUserTemplate = `
-Write \${prompt} for a \${age} year old.
+Write a story about the following for a \${age} year old.
+
+Prompt: \${userPrompt}
 `;
 
 // TODO(Peng): switch this to an enum describing that no edits were needed to save response tokens
@@ -101,7 +103,8 @@ export type GeneratedBookResponse = {
 export async function openAIGenerateBookFromPrompt(
   prompt: PromptInput
 ): Promise<GeneratedBookResponse> {
-  const systemPrompt = populatePromptTemplate(defaultSystemTemplate, prompt).trim();
+  logger.debug(`Client prompt: ${JSON.stringify(prompt)}`);
+  const systemPrompt = prompt.systemPrompt == null || prompt.systemPrompt.length == 0 ? populatePromptTemplate(defaultSystemTemplate, prompt).trim(): prompt.systemPrompt;
   const userPrompt = populatePromptTemplate(defaultUserTemplate, prompt).trim();
   return _promptHelper(systemPrompt, userPrompt);
 }
@@ -171,11 +174,12 @@ export function parseGPT4Completion(
 }
 
 export async function openAIEditBook(
-  book: string
+  book: string,
+  prompt: PromptInput
 ): Promise<GeneratedBookResponse> {
   const userPrompt = book.trim();
-
-  return _promptHelper(defaultEditorTemplate.trim(), userPrompt);
+  const editTemplate = prompt.editPrompt == null || prompt.editPrompt.length == 0 ? defaultEditorTemplate.trim(): prompt.editPrompt.trim();
+  return _promptHelper(editTemplate, userPrompt);
 }
 
 async function _promptHelper(
@@ -202,7 +206,7 @@ async function _promptHelper(
     userPrompt: userPrompt,
     completion: completion,
   };
-  logger.debug(`Prompt and response: ${JSON.stringify(response)}`);
+  logger.debug(`OpenAI prompt and response: ${JSON.stringify(response)}`);
   return response;
 }
 

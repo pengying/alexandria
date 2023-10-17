@@ -61,7 +61,7 @@ export class OpenAIConnector {
     });
 
     let result = await chain.call({
-      prompt: prompt.prompt,
+      prompt: prompt.userPrompt,
       name: prompt.name,
       age: prompt.age,
     });
