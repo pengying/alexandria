@@ -2,7 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+import 'package:papillon/appstate.dart';
+import 'package:papillon/models/book_model.dart';
+import 'package:papillon/screens/book_reader.dart';
+import 'package:provider/provider.dart';
 import 'graph.dart';
 
 class Prompt extends StatefulWidget {
@@ -15,7 +18,7 @@ class _PromptState extends State<Prompt> {
   final ageController = TextEditingController();
   final promptController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -31,7 +34,8 @@ class _PromptState extends State<Prompt> {
     // the form is invalid.
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Generating Book.  Hold on this may take a while')),
+        const SnackBar(
+            content: Text('Generating Book.  Hold on this may take a while')),
       );
     }
 
@@ -42,7 +46,7 @@ class _PromptState extends State<Prompt> {
         name: nameController.text,
         age: int.parse(ageController.text),
         prompt: promptController.text);
-    
+
     // While waiting for the net work response show a dialog
     showDialog(
       context: context,
@@ -63,8 +67,12 @@ class _PromptState extends State<Prompt> {
     // Resolve the promise then hide the dialog.
     gPromise.then(
       (value) {
+        BookModel book = BookModel.fromQueryResult(queryResult: value.data!['generateBookFromPrompt']!);
+        Provider.of<MyAppState>(context, listen: false).addBook(book);
         Navigator.pop(context);
         log(json.encode(value.data));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => BookReader(book: book)));
       },
     ).catchError((error) {
       log(error);

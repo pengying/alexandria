@@ -24,10 +24,8 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setBook(BookModel book) {
-    currentBook = book;
-    selectedIndex = 2;
-    notifyListeners();
+  void addBook(BookModel book) async {
+    allBooks.then((value) => value.add(book));
   }
 
   void toggleFavorite() {

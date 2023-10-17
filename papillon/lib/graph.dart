@@ -21,8 +21,35 @@ Future<QueryResult> generateBookFromPrompt(
 mutation Mutation($prompt: PromptInput!) {
   generateBookFromPrompt(prompt: $prompt){
     title
+    updatedAt
+    createdAt
+    uuid
     bookRaw {
       content
+      systemPrompt
+      userPrompt
+      completionTokens
+      raw
+      totalTokens
+      model
+      sceneDescription
+      characters {
+        name
+        description
+      }
+    }
+    bookEdited {
+      content
+      systemPrompt
+      userPrompt
+      completionTokens
+      raw
+      totalTokens
+      sceneDescription
+      characters {
+        name
+        description
+      }
     }
   }
 }

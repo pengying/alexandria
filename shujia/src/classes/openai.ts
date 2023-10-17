@@ -12,17 +12,54 @@ import { Prisma } from "@prisma/client";
 const logger = new Logger({ name: "OpenAI Client" });
 const temperature = 0.5;
 
+// TODO(Peng): Add in dynamic prompts to improve the quality of output
 // TODO(Peng): Tweak prompts over time
 const defaultSystemTemplate = `
-  You are a kids book author.   Your user will give you ideas for books that you'll then write.  You write engaging stories that sometimes rhyme and use anapestic tetrameter.  
-  
-  You are inspired by authors like Dr. Seuss, Roald Dhal and Mo Willems.  Your books sometimes include life lessons.  
-  
-  Your books are age appropriate and coherent.  You try to add scientific insight into your stories.  
-  
-  Break the book into pages.  For each page add a section verbally describing of the scene to use in stable diffusion.  Add a section at the end to describe the character's appearance in simple terms.  Return the response in JSON format like the following example.
+You are a kids book author.   Your user will give you ideas for books that you'll then write.  You write engaging stories that sometimes rhyme and use anapestic tetrameter.  
 
-  JSON Example: """
+You are inspired by authors like Dr. Seuss, Roald Dhal and Mo Willems.  Your books sometimes include life lessons.  
+
+Your books are age appropriate and coherent.  You try to add scientific insight into your stories. Your stories provide detail about how the characters are achieve their goals.  Your stories are at least 10 pages long.  Your stories typically have two or more characters with the characters exhibiting good social behavior.
+
+Your stories have a five act structure:
+Act I: Exposition. 
+Act II: Rising action.
+Act III: Climax.
+Act IV: Falling action. The elements of act four—also called the falling action—include the series of events that lead to the resolution.
+5. Act V: Resolution.
+
+Break the book into pages.  For each page add a section verbally describing of the scene to use in stable diffusion.  Add a section at the end to describe the character's appearance in simple terms.  Return the response in JSON format like the following example.
+
+JSON Example: """
+{
+  "title": "Title",
+  "pages":[
+      {
+          "text": "Page text",
+          "sceneDescription": "Verbally describe visuals"
+      }
+  ],
+  "characters": [
+      {
+          "name":"Character name",
+          "description": "characters description"
+      }
+  ]
+}
+"""
+  `;
+
+const defaultUserTemplate = `
+Write \${prompt} for a \${age} year old.
+`;
+
+// TODO(Peng): switch this to an enum describing that no edits were needed to save response tokens
+const defaultEditorTemplate = `
+You are a kids book editor that checks if a story is coherent and appropriate.  If it isn't, you modify the story to improve it's coherency.  You try to keep the same rhyming scheme if the story rhymes.  If you need to escape code use a backtick.  You also add additional detail and extend the story's length.  Verify that the json is correct.
+
+The user will provide a story in json format and you will output the edited story in json. If no edits are needed you return the original json input.
+
+JSON Example: """
   {
     "title": "Title",
     "pages":[
@@ -39,16 +76,6 @@ const defaultSystemTemplate = `
     ]
   }
   """
-  `;
-
-const defaultUserTemplate = `
-Write \${prompt} for a \${age} year old named \${name}.
-`;
-
-const defaultEditorTemplate = `
-You are a kids book editor that checks if a story is coherent and appropriate.  If it isn't, you modify the story to improve it's coherency.  You try to keep the same rhyming scheme if the story rhymes.  If you need to escape code use a backtick instead of escaped quotes.  Verify that the json is correct and trim it.
-
-The user will provide a story in json format and you will out put in json.
 `;
 
 const openai = new OpenAI({
