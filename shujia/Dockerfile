@@ -20,4 +20,4 @@ RUN npm run compile
 EXPOSE 4000
 
 # Set the command to run your application. This can be `npm start` or `node your-entry-file.js`, etc.
-CMD [ "npm", "run", "start:migrate:prod" ]
+CMD [ "npm", "run", "start:prod" ]

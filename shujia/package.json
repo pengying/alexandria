@@ -8,8 +8,8 @@
     "generate:local": "dotenv -e .env.local -- npx prisma generate",
     "generate": "npx prisma generate",
     "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js",
-    "start:migrate:prod": "npx prisma migrate deploy && node ./dist/index.js"
+    "start": "npm run generate && npm run compile && node ./dist/index.js",
+    "start:prod": "node ./dist/index.js"
   },
   "dependencies": {
     "@apollo/server": "4.9.3",
