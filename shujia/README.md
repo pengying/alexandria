@@ -1,6 +1,9 @@
 ## How to run
 
- docker run --env OPENAI_API_KEY=$OPENAI_API_KEY --net=host -p 4000:4000 pengying/shujia
+docker build --build-arg DB_USER=$DB_USER DB_PASS=$DB_PASS --no-cache -t pengying/shujia .
+
+
+docker run --env OPENAI_API_KEY=$OPENAI_API_KEY --env DATABASE_URL="postgresql://$DB_USER:$DB_PASS@localhost:5432/shujia-db?schema=public" --net=host -p 4000:4000 pengying/shujia
  
 Update env
 DATABASE_URL="postgresql://postgres:postgres@$PG_HOST:5432/pg_development?schema=public"

@@ -153,6 +153,13 @@ gcloud iam service-accounts keys create KEY_FILE --iam-account=quickstart-servic
 silken-hulling-402322:us-central1:alexandria-dev
 ```
 
+#### Service account enable logging
+```bash
+gcloud projects add-iam-policy-binding silken-hulling-402322 \
+  --member="serviceAccount:479569486913-compute@developer.gserviceaccount.com" \
+  --role="roles/logging.logWriter"
+```
+
 ## TODOs
 - Move story generation to start with chapters -> fill in story
 - 
