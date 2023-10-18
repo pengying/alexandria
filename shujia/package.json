@@ -2,9 +2,11 @@
   "name": "shujia",
   "version": "0.0.1",
   "scripts": {
-    "dev": "npm run generate && dotenv -e .env.local -- ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
+    "dev:local": "npm run generate:local && dotenv -e .env.local -- ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
+    "dev": "npm run generate && ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
     "dev:debug": "npm run generate && ts-node-dev --transpile-only --respawn --inspect=4321 src/index.ts",
-    "generate": "dotenv -e .env.local -- npx prisma generate",
+    "generate:local": "dotenv -e .env.local -- npx prisma generate",
+    "generate": "npx prisma generate",
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
     "start:migrate:prod": "npx prisma migrate deploy && node ./dist/index.js"

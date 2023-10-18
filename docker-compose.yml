@@ -9,9 +9,9 @@ services:
     volumes:
       - /var/lib/postgresql:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: pg_development
+      PG_USER: shujia-user
+      PG_PASSWORD: shujia-user
+      PG_DB: shujia-db
 
   graph:
     build: shujia
