@@ -20,7 +20,11 @@ class BookReader extends StatelessWidget {
           child: Column(
             children: [
               Text('$comparisonType Raw Response'),
-              for (var page in rawContent) ListTile(title: Text(page))
+              for (var page in rawContent) 
+                Padding(
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: Text(page)
+                )
             ],
           ),
         ),
@@ -111,7 +115,6 @@ class BookReader extends StatelessWidget {
           title: Text(book.title),
         ),
         body: SingleChildScrollView(
-            child: Container(
                 padding: const EdgeInsets.all(14.0),
                 child: Column(
                   children: [
@@ -120,6 +123,6 @@ class BookReader extends StatelessWidget {
                     characterComparison(book),
                     sceneComparison(book),
                   ],
-                ))));
+                )));
   }
 }
