@@ -157,7 +157,16 @@ silken-hulling-402322:us-central1:alexandria-dev
 ```bash
 gcloud projects add-iam-policy-binding silken-hulling-402322 \
   --member="serviceAccount:479569486913-compute@developer.gserviceaccount.com" \
-  --role="roles/logging.logWriter"
+  --role="roles/artifactregistry.writer"
+```
+
+```bash
+docker tag pengying/shujia us-central1-docker.pkg.dev/silken-hulling-402322/shujia/shujia:0.0.1
+```
+
+#### Firebase hosting
+```bash
+npm install -g firebase-tools
 ```
 
 ## TODOs

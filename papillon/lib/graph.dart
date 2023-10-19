@@ -3,8 +3,7 @@ import 'package:papillon/models/book_model.dart';
 import 'dart:developer' as developer;
 
 final Link _httpLink = HttpLink(
-  // const String.fromEnvironment('GRAPH_HOST'),
-  "http://localhost:4000/graphql",
+  const String.fromEnvironment('API_URL',defaultValue: 'https://shujia-api.appliedml.dev/'),
 );
 
 final GraphQLClient client = GraphQLClient(

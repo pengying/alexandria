@@ -23,3 +23,5 @@ dart run build_runner build
 
 ## Run docker webserver
 docker run -p 8888:80 pengying/papillon
+
+dart run --dart-define=API_URL="https://localhost:4000/graphql"
