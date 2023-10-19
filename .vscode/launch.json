@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "name": "launch",
+            "request": "launch",
+            "runtimeExecutable": "${workspaceFolder}/shujia/node_modules/.bin/tsnd",
+            "program": "${workspaceFolder}/shujia/src/index.ts",
+            "args": [
+                "--transpile-only",
+                "--respawn",
+                "--project",
+                "tsconfig.dev.json",
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+        },
+    ]
+}

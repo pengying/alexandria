@@ -7,13 +7,19 @@
         {
             "name": "papillon",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "env": {
+                "API_URL": "https://localhost:4000/graphql"
+            }
         },
         {
             "name": "papillon (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "env": {
+                "API_URL": "https://localhost:4000/graphql"
+            }
         },
         {
             "name": "papillon (release mode)",
