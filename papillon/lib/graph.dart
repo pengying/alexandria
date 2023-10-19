@@ -1,9 +1,9 @@
 import 'package:graphql/client.dart';
 import 'package:papillon/models/book_model.dart';
 import 'dart:developer' as developer;
-
+const String _apiUrl = String.fromEnvironment('API_URL',defaultValue: 'https://shujia-api.appliedml.dev/');
 final Link _httpLink = HttpLink(
-  const String.fromEnvironment('API_URL',defaultValue: 'https://shujia-api.appliedml.dev/'),
+  _apiUrl,
 );
 
 final GraphQLClient client = GraphQLClient(
@@ -113,6 +113,7 @@ query Books {
   final QueryResult result = await client.query(options);
   // TODO(Peng): add error handling
   developer.log(result.data.toString(), name: 'graph.listAllBooks');
+  developer.log(_apiUrl, name: 'API server');
 
   if (!result.hasException) {
     List<dynamic> queryBooks = result.data?['books'];

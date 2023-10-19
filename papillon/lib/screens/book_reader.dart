@@ -20,17 +20,7 @@ class BookReader extends StatelessWidget {
           child: Column(
             children: [
               Text('$comparisonType Raw Response'),
-              ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: rawContent.length,
-                prototypeItem: ListTile(
-                  title: Text(rawContent[0]),
-                ),
-                itemBuilder: (context, index) {
-                  return ListTile(title: Text(rawContent[index]));
-                },
-              )
+              for (var page in rawContent) ListTile(title: Text(page))
             ],
           ),
         ),
@@ -38,19 +28,12 @@ class BookReader extends StatelessWidget {
             flex: 2,
             child: Column(children: [
               Text('$comparisonType Edited Response'),
-              ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: editedContent.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                        padding: const EdgeInsets.only(top: 8, bottom: 8),
-                        child: PrettyDiffText(
-                            defaultTextStyle:
-                                DefaultTextStyle.of(context).style,
-                            oldText: rawContent[index],
-                            newText: editedContent[index]));
-                  }),
+              for (var index = 0; index < editedContent.length; index++)
+                Padding(
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: PrettyDiffText(
+                        oldText: rawContent[index],
+                        newText: editedContent[index]))
             ]))
       ],
     );
