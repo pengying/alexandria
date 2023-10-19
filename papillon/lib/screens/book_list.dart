@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:papillon/appstate.dart';
+import 'package:papillon/graph.dart';
+import 'package:papillon/models/book_list_model.dart';
 import 'package:papillon/models/book_model.dart';
 import 'package:papillon/screens/book_reader.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +13,7 @@ class BookList extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return FutureBuilder<List<BookModel>>(
+    return FutureBuilder<List<BookListModel>>(
         future: appState.allBooks,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -26,15 +28,15 @@ class BookList extends StatelessWidget {
                   child: Text('You have '
                       '${snapshot.data!.length} books:'),
                 ),
-                for (var book in snapshot.data!)
+                for (var minBook in snapshot.data!)
                   GestureDetector(
-                    onTap: () {
+                    onTap: ()  {
                       Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BookReader(book: book)));
+                      MaterialPageRoute(builder: (context) => BookReader(bookUuid: minBook.uuid)));
                     },
                     child: ListTile(
                     // leading: const Icon(Icons.favorite),
-                    title: Text(book.title),
+                    title: Text(minBook.title),
                   )
                   )
               ]);

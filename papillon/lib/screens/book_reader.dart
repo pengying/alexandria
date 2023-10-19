@@ -1,10 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:papillon/graph.dart';
 import 'package:papillon/models/book_model.dart';
 import 'package:pretty_diff_text/pretty_diff_text.dart';
 
-class BookReader extends StatelessWidget {
-  final BookModel book;
-  const BookReader({super.key, required this.book});
+class BookReader extends StatefulWidget {
+  final String bookUuid;
+
+  const BookReader({super.key, required this.bookUuid});
+
+  @override
+  State<BookReader> createState() => _BookReaderState();
+}
+
+class _BookReaderState extends State<BookReader> with TickerProviderStateMixin {
+  late final Future<BookModel> book;
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..addListener(() {
+        setState(() {});
+      });
+    book = getBook(uuid: widget.bookUuid);
+    controller.repeat(reverse: true);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   /// Helper to render different comparisons
   Widget _comparisonHelper({
@@ -20,11 +51,10 @@ class BookReader extends StatelessWidget {
           child: Column(
             children: [
               Text('$comparisonType Raw Response'),
-              for (var page in rawContent) 
+              for (var page in rawContent)
                 Padding(
                     padding: const EdgeInsets.only(top: 8, bottom: 8),
-                    child: Text(page)
-                )
+                    child: Text(page))
             ],
           ),
         ),
@@ -110,19 +140,32 @@ class BookReader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(book.title),
-        ),
-        body: SingleChildScrollView(
-                padding: const EdgeInsets.all(14.0),
-                child: Column(
-                  children: [
-                    bookHeader(book),
-                    bookComparison(book),
-                    characterComparison(book),
-                    sceneComparison(book),
-                  ],
-                )));
+    return FutureBuilder<BookModel>(
+        future: book,
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text(snapshot.data!.title),
+                ),
+                body: SingleChildScrollView(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Column(
+                      children: [
+                        bookHeader(snapshot.data!),
+                        bookComparison(snapshot.data!),
+                        characterComparison(snapshot.data!),
+                        sceneComparison(snapshot.data!),
+                      ],
+                    )));
+          } else {
+            return Center(
+              child: CircularProgressIndicator(
+                value: controller.value,
+                semanticsLabel: 'Circular progress indicator',
+              ),
+            );
+          }
+        });
   }
 }

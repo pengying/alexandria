@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:papillon/appstate.dart';
+import 'package:papillon/models/book_list_model.dart';
 import 'package:papillon/models/book_model.dart';
 import 'package:papillon/screens/book_reader.dart';
 import 'package:provider/provider.dart';
@@ -109,7 +110,7 @@ JSON Example: """
         systemPrompt: systemPromptController.text,
         editPrompt: editPromptController.text);
 
-    // While waiting for the net work response show a dialog
+    // While waiting for the network response show a dialog
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -131,11 +132,11 @@ JSON Example: """
       (value) {
         BookModel book = BookModel.fromQueryResult(
             queryResult: value.data!['generateBookFromPrompt']!);
-        Provider.of<MyAppState>(context, listen: false).addBook(book);
+        Provider.of<MyAppState>(context, listen: false).addBook(BookListModel(title: book.title, uuid: book.uuid));
         Navigator.pop(context);
         log(json.encode(value.data));
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => BookReader(book: book)));
+            MaterialPageRoute(builder: (context) => BookReader(bookUuid: book.uuid)));
       },
     ).catchError((error) {
        Navigator.pop(context);

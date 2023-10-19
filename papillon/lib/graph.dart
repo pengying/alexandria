@@ -9,7 +9,7 @@ final Link _httpLink = HttpLink(
   _apiUrl,
 );
 
-const String allFields='''
+const String allFields = '''
 title
 updatedAt
 createdAt
@@ -80,8 +80,7 @@ Future<BookModel> getBook({required String uuid}) async {
   const getBookQuery = """
 query Query(\$where: BookWhereUniqueInput!) {
   book(where: \$where) {
-    title
-    uuid
+    $allFields
   }
 }
 """;
