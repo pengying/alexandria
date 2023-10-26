@@ -53,7 +53,8 @@ Future<List<BookListModel>> listAllBooksMin() async {
   const listAllBooksMinQuery = """
 query Books {
   books {
-    $allFields
+    uuid
+    title
   }
 }
 """;

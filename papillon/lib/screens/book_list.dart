@@ -45,7 +45,7 @@ class BookList extends StatelessWidget {
             // TODO(Peng): fix this error handling
             return Text('${snapshot.error}');
           }
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         });
   }
 }
